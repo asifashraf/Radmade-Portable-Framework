@@ -51,13 +51,15 @@
   <ItemGroup>
     <Compile Include="AreaRegistration.cs" />
     <Compile Include="Controllers\TestWebAuth.cs" />
-    <Compile Include="Exceptions\TokenExpiredException.cs" />
-    <Compile Include="Exceptions\WebAuthCookieNotFoundException.cs" />
+    <Compile Include="InvalidIPException.cs" />
+    <Compile Include="TokenExpiredException.cs" />
+    <Compile Include="WebAuthCookieNotFoundException.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="Types\Auth.cs" />
-    <Compile Include="Types\IPHelper.cs" />
-    <Compile Include="Types\IPRangeMode.cs" />
-    <Compile Include="Types\Token.cs" />
+    <Compile Include="Auth.cs" />
+    <Compile Include="AuthorizationAttribute.cs" />
+    <Compile Include="IPHelper.cs" />
+    <Compile Include="IPRangeMode.cs" />
+    <Compile Include="Token.cs" />
     <Compile Include="WebAuthSettings.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -68,6 +70,10 @@
     <ProjectReference Include="..\Areas.Common\Areas.Common.csproj">
       <Project>{365130B8-FF4A-44AE-85CC-84DBF3D1439A}</Project>
       <Name>Areas.Common</Name>
+    </ProjectReference>
+    <ProjectReference Include="..\Areas.Encryption\Areas.Encryption.csproj">
+      <Project>{4D116EA4-A0B3-4366-B193-5A20E3DBF1E3}</Project>
+      <Name>Areas.Encryption</Name>
     </ProjectReference>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

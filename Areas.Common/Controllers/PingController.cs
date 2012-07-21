@@ -2,8 +2,6 @@
 using System.Collections.Generic;
 using System.Globalization;
 using System.Web.Mvc;
-using Areas.Common.Bases;
-using Areas.Common.Json;
 
 namespace Areas.Common.Controllers
 {

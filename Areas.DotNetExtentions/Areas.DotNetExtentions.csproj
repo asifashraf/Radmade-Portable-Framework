@@ -1,0 +1,127 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Project ToolsVersion="4.0" DefaultTargets="Build" xmlns="http://schemas.microsoft.com/developer/msbuild/2003">
+  <PropertyGroup>
+    <Configuration Condition=" '$(Configuration)' == '' ">Debug</Configuration>
+    <Platform Condition=" '$(Platform)' == '' ">AnyCPU</Platform>
+    <ProductVersion>8.0.30703</ProductVersion>
+    <SchemaVersion>2.0</SchemaVersion>
+    <ProjectGuid>{E8C8AFAD-9867-40C1-8EF3-236EA4AE19A8}</ProjectGuid>
+    <OutputType>Library</OutputType>
+    <AppDesignerFolder>Properties</AppDesignerFolder>
+    <RootNamespace>Areas.DotNetExtentions</RootNamespace>
+    <AssemblyName>Areas.DotNetExtentions</AssemblyName>
+    <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
+    <FileAlignment>512</FileAlignment>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
+    <DebugSymbols>true</DebugSymbols>
+    <DebugType>full</DebugType>
+    <Optimize>false</Optimize>
+    <OutputPath>..\Output\</OutputPath>
+    <DefineConstants>DEBUG;TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
+    <DebugType>pdbonly</DebugType>
+    <Optimize>true</Optimize>
+    <OutputPath>bin\Release\</OutputPath>
+    <DefineConstants>TRACE</DefineConstants>
+    <ErrorReport>prompt</ErrorReport>
+    <WarningLevel>4</WarningLevel>
+  </PropertyGroup>
+  <ItemGroup>
+    <Reference Include="System" />
+    <Reference Include="System.configuration" />
+    <Reference Include="System.Core" />
+    <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Drawing" />
+    <Reference Include="System.Management" />
+    <Reference Include="System.Net" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.ServiceProcess" />
+    <Reference Include="System.Web" />
+    <Reference Include="System.Web.Extensions" />
+    <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Xml.Linq" />
+    <Reference Include="System.Data.DataSetExtensions" />
+    <Reference Include="Microsoft.CSharp" />
+    <Reference Include="System.Data" />
+    <Reference Include="System.Xml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Support\Enums\TextNotation.cs" />
+    <Compile Include="Support\Enums\XEncoding.cs" />
+    <Compile Include="Support\Enums\XVersion.cs" />
+    <Compile Include="System.Collections.Generic\ExListOfStrings.cs" />
+    <Compile Include="System.Collections.Generic\IEnumerableGeneric.cs" />
+    <Compile Include="System.Collections\IEnumerableEx.cs" />
+    <Compile Include="System.Collections\ObjectArray.cs" />
+    <Compile Include="System.Configuration\ConfigurationSectionX.cs" />
+    <Compile Include="System.Data.SqlClient\SqlCommandX.cs" />
+    <Compile Include="System.Data.SqlClient\SqlConnection.cs" />
+    <Compile Include="System.Data.SqlClient\SqlDataAdapter.cs" />
+    <Compile Include="System.Data.SqlClient\SqlDataReaderX.cs" />
+    <Compile Include="System.Data\DataTableX.cs" />
+    <Compile Include="System.Diagnostics\ProcessStartInfoX.cs" />
+    <Compile Include="System.Diagnostics\ProcessX.cs" />
+    <Compile Include="System.Drawing\Image.cs" />
+    <Compile Include="System.IO\DirectoryInfoX.cs" />
+    <Compile Include="System.IO\DriveInfoX.cs" />
+    <Compile Include="System.IO\FileInfoX.cs" />
+    <Compile Include="System.IO\FileStreamEx.cs" />
+    <Compile Include="System.IO\StreamReaderX.cs" />
+    <Compile Include="System.Linq\IQueryableGenericEx.cs" />
+    <Compile Include="System.Management\ComputerSystemPropertiesEnum.cs" />
+    <Compile Include="System.Management\HddPropertiesEnum.cs" />
+    <Compile Include="System.Management\ManagementObjectSearcherX.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="System.Management\ManagementSourceEnum.cs" />
+    <Compile Include="System.Management\OperatingSystemPropertiesEnum.cs" />
+    <Compile Include="System.Management\ProcessorPropertiesEnum.cs" />
+    <Compile Include="System.Management\SystemInformation.cs" />
+    <Compile Include="System.Net\MailExtenders.cs" />
+    <Compile Include="System.Net\WebClientEx.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="System.ServiceProcess\ServiceControllerArray.cs" />
+    <Compile Include="System.Text\StringBuilderX.cs" />
+    <Compile Include="System.Threading\ThreadX.cs" />
+    <Compile Include="System.Web.Management\WebAuditEventX.cs" />
+    <Compile Include="System.Web.UI.HtmlControls\FormX.cs" />
+    <Compile Include="System.Web.UI.WebControls\GridViewX.cs" />
+    <Compile Include="System.Web.UI.WebControls\RepeaterEx.cs" />
+    <Compile Include="System.Web.UI.WebControls\RequiredFieldValidatorX.cs" />
+    <Compile Include="System.Web\HttpContextX.cs" />
+    <Compile Include="System.Web\HttpRequestX.cs" />
+    <Compile Include="System.Xml.Linq\ExIEnumerableOfXAttribute.cs" />
+    <Compile Include="System.Xml.Linq\ExIEnumerableXNode.cs" />
+    <Compile Include="System.Xml.Linq\ExXDocument.cs" />
+    <Compile Include="System.Xml.Linq\ExXNode.cs" />
+    <Compile Include="System.Xml.Linq\ExXObject.cs" />
+    <Compile Include="System\DecimalX.cs" />
+    <Compile Include="System\EnumX.cs" />
+    <Compile Include="System\Exbool.cs" />
+    <Compile Include="System\ExceptionX.cs" />
+    <Compile Include="System\ExDateTime.cs" />
+    <Compile Include="System\IntEx.cs" />
+    <Compile Include="System\objectEx.cs" />
+    <Compile Include="System\ShortX.cs" />
+    <Compile Include="System\StringEnum.cs" />
+    <Compile Include="System\StringX.cs" />
+    <Compile Include="System\TypeX.cs" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="System.Web.MVC\" />
+  </ItemGroup>
+  <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
+  <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
+       Other similar extension points exist, see Microsoft.Common.targets.
+  <Target Name="BeforeBuild">
+  </Target>
+  <Target Name="AfterBuild">
+  </Target>
+  -->
+</Project>
