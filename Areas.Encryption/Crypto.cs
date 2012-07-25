@@ -3,7 +3,7 @@ using System.IO;
 using System.Security.Cryptography;
 using System.Text;
 
-namespace RadApi.Libs.Encryption
+namespace Areas.Encryption
 {
     public class Crypto
     {

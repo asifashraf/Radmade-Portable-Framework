@@ -2,7 +2,7 @@
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using RadApi.Libs.Encryption;
+using Areas.Encryption;
 
 namespace Areas.WebAuth
 {
