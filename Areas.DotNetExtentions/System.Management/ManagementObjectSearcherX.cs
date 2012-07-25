@@ -76,7 +76,7 @@ namespace RadApi.Core
             List<KeyValue> parsed = new List<KeyValue>();
             foreach (var hddP in propertyData)
             {
-                parsed.Add(new KeyValue(hddP.Name, hddP.Value.text()));
+                parsed.Add(new KeyValue(hddP.Name, hddP.Value.Text()));
             }
             return parsed.ToArray<KeyValue>();
         }

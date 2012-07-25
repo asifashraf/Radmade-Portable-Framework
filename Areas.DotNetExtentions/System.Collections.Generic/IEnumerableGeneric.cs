@@ -90,7 +90,7 @@ using System.Text;
         foreach (var s in data)
         {
             sb.Append(string.Format("{0}{1}",
-                s.text(), delimiter));
+                s.Text(), delimiter));
         }
 
         return sb.ToString()

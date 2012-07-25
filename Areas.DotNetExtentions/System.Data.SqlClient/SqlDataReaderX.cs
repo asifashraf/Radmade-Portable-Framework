@@ -61,14 +61,14 @@ using System.Web;
 		}
 		public static string ColumnValueHtmlEncoded(this SqlDataReader reader, string columnName)
 		{
-			return HttpContext.Current.Server.HtmlEncode(reader[columnName].text());
+			return HttpContext.Current.Server.HtmlEncode(reader[columnName].Text());
 		}
 		/// <summary>
 		/// Escapes null values and sends empty string where data is null.
 		/// </summary>
 		public static string StringValue(this SqlDataReader reader, string columnName)
 		{
-			return reader[columnName].text();
+			return reader[columnName].Text();
 		}
 		#endregion Methods 
 	}

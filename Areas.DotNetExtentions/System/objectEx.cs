@@ -191,7 +191,7 @@ public static class objectEx
         return object1.ToString().Trim().ToLower() == object2.ToString().Trim().ToLower();
     }
 
-    public static string text(this object o)
+    public static string Text(this object o)
     {
         if (null == o)
         {
@@ -230,7 +230,7 @@ public static class objectEx
                     afterDecimal);
             }
         }
-        return o.text();
+        return o.Text();
     }
 
     public static string ToThreeDecimalPlaces(this object o)
@@ -263,7 +263,7 @@ public static class objectEx
                     afterDecimal);
             }
         }
-        return o.text();
+        return o.Text();
     }
 
     public static string ToTwoDigits(this object o)
