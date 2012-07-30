@@ -5,5 +5,7 @@ Output/*.dll
 Output/*.pdb
 Output.Tests/*.dll
 Output.Tests/*.pdb
+*_ReSharper*
+*.suo
 # mstest test results
 TestResults

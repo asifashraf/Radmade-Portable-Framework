@@ -1,9 +1,0 @@
-<Modules>
-  <Module PersistentId="C38E6ED9-AB3D-41E6-B06C-8FFE778C55B5" ModuleId="Areas.Mvc" />
-  <Module PersistentId="365130B8-FF4A-44AE-85CC-84DBF3D1439A" ModuleId="Areas.Common" />
-  <Module PersistentId="6B21B71F-6B30-4A8C-8E76-BC7565B19EAE" ModuleId="Areas.WebAuth" />
-  <Module PersistentId="741D32FF-7F8E-4DB5-9415-5F4ACFA55C41" ModuleId="Areas.Lib" />
-  <Module PersistentId="0730CB0D-AD78-4142-A871-DAF5EEF0684C" ModuleId="Areas.DotNetExtensions.Tests" />
-  <Module PersistentId="57BAB089-8E21-4C31-A044-EA7805E06661" ModuleId="Area.CommonMvc" />
-  <Module PersistentId="8EE60942-E574-4ECA-BDA3-E8122BE74ADA" ModuleId="Area.CommonMvc.Tests" />
-</Modules>
