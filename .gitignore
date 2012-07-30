@@ -3,5 +3,7 @@ bin
 obj
 Output/*.dll
 Output/*.pdb
+Output.Tests/*.dll
+Output.Tests/*.pdb
 # mstest test results
 TestResults
