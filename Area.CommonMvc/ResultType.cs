@@ -5,7 +5,6 @@
         good,
         bad,
         data,
-        raw,
         validationErrors,
         exception ,
         specialCode,

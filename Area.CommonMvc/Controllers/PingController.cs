@@ -7,6 +7,11 @@ namespace Area.CommonMvc.Controllers
 {
     public class PingController : BaseController
     {
+        public JsonResult Index()
+        {
+            return Json(string.Format("At {0}", DateTime.Now.ToLongTimeString()), JsonRequestBehavior.AllowGet);
+        }
+
         public JsonResult GetBrowserInfo()
         {
             var browser = Request.Browser;
