@@ -3,8 +3,12 @@ bin
 obj
 Output/*.dll
 Output/*.pdb
+Output/*.xml
+
 Output.Tests/*.dll
 Output.Tests/*.pdb
+Output.Tests/*.xml
+
 *_ReSharper*
 *.suo
 # mstest test results
