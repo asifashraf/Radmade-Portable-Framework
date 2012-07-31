@@ -55,6 +55,10 @@
     <Compile Include="WebAuth\TokenExpiredException.cs" />
     <Compile Include="WebAuth\WebAuthCookieNotFoundException.cs" />
     <Compile Include="WebAuth\WebAuthSettings.cs" />
+    <Compile Include="Web\AreaRegistrationUtil.cs" />
+    <Compile Include="Web\BaseController.cs" />
+    <Compile Include="Web\JsonMessage.cs" />
+    <Compile Include="Web\ResultType.cs" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

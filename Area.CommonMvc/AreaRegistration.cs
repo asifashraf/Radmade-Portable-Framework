@@ -3,7 +3,7 @@ using MvcContrib.PortableAreas;
 
 namespace Area.CommonMvc
 {
-    public class AreaRegistration : PortableAreaRegistration
+    public class CommonAreaRegistration : PortableAreaRegistration
     {
         private const string AREA = "common";
 

@@ -26,9 +26,9 @@
     </appSettings>
 
     <system.web>
-        <httpHandlers>
+        <!--<httpHandlers>
             <add path="*" verb="*" type="System.Web.HttpNotFoundHandler"/>
-        </httpHandlers>       
+        </httpHandlers>-->      
         <pages
             validateRequest="false"
             pageParserFilterType="System.Web.Mvc.ViewTypeParserFilter, System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31BF3856AD364E35"

@@ -1,0 +1,30 @@
+﻿/*----------------------------------------------------------
+The base color for this template is #5c87b2. If you'd like
+to use a different color start by replacing all instances of
+#5c87b2 with your new color.
+----------------------------------------------------------*/
+body {
+    background-color: #605F5F;
+    font-size: .85em;
+    font-family: "Trebuchet MS", Verdana, Helvetica, Sans-Serif;
+    margin: 0;
+    padding: 0;
+    color: #696969;
+}
+
+.page {
+    width: 960px;
+    margin: auto;
+}
+
+#main {
+    background-color: white;
+    padding: 20px;
+}
+
+.well {
+  float: left;
+  margin-right: 20px;
+  padding: 8px 0;
+  width: 200px;
+}

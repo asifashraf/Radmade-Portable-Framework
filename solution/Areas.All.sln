@@ -18,6 +18,8 @@ Project("{2150E333-8FDC-42A3-9474-1A3956D46DE8}") = "Solution Items", "Solution 
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Areas.DotNetExtensions", "..\Areas.DotNetExtensions\Areas.DotNetExtensions.csproj", "{891BC139-7F80-41BE-8AF8-F0D400A6068B}"
 EndProject
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Areas.CommonMvc.TestWebUI", "..\Areas.CommonMvc.TestWebUI\Areas.CommonMvc.TestWebUI.csproj", "{672DAA53-B440-4C42-9409-EC6E1351F762}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
@@ -48,6 +50,10 @@ Global
 		{891BC139-7F80-41BE-8AF8-F0D400A6068B}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{891BC139-7F80-41BE-8AF8-F0D400A6068B}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{891BC139-7F80-41BE-8AF8-F0D400A6068B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{672DAA53-B440-4C42-9409-EC6E1351F762}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{672DAA53-B440-4C42-9409-EC6E1351F762}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{672DAA53-B440-4C42-9409-EC6E1351F762}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{672DAA53-B440-4C42-9409-EC6E1351F762}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

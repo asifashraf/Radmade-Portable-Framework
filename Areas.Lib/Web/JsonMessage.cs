@@ -1,4 +1,4 @@
-﻿namespace Area.CommonMvc
+﻿namespace Areas.Lib.Web
 {
     public class JsonMessage
     {
