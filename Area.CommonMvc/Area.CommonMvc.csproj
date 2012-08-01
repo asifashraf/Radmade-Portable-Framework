@@ -46,17 +46,54 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AreaRegistration.cs" />
+    <Compile Include="Controllers\AsyncUploadController.cs" />
     <Compile Include="Controllers\PingController.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
   <ItemGroup>
     <Content Include="areas_web.config.txt" />
+    <EmbeddedResource Include="Scripts\my.js" />
+    <EmbeddedResource Include="Content\css\com.css" />
+    <EmbeddedResource Include="Content\css\Site.css" />
+    <EmbeddedResource Include="Content\js\jquery-1.7.2.min.js" />
+    <EmbeddedResource Include="Content\Lib\bootstrap\bootstrap\css\bootstrap-responsive.css" />
+    <EmbeddedResource Include="Content\Lib\bootstrap\bootstrap\css\bootstrap-responsive.min.css" />
+    <EmbeddedResource Include="Content\Lib\bootstrap\bootstrap\css\bootstrap.css" />
+    <EmbeddedResource Include="Content\Lib\bootstrap\bootstrap\css\bootstrap.min.css" />
+    <EmbeddedResource Include="Content\Lib\bootstrap\bootstrap\img\glyphicons-halflings-white.png" />
+    <EmbeddedResource Include="Content\Lib\bootstrap\bootstrap\img\glyphicons-halflings.png" />
+    <EmbeddedResource Include="Content\Lib\bootstrap\bootstrap\js\bootstrap-dropdown.js" />
+    <EmbeddedResource Include="Content\Lib\bootstrap\bootstrap\js\bootstrap.js" />
+    <EmbeddedResource Include="Content\Lib\bootstrap\bootstrap\js\bootstrap.min.js" />
+    <EmbeddedResource Include="Content\Lib\jquery.form\jquery.form.js" />
   </ItemGroup>
   <ItemGroup>
     <ProjectReference Include="..\Areas.Lib\Areas.Lib.csproj">
       <Project>{741D32FF-7F8E-4DB5-9415-5F4ACFA55C41}</Project>
       <Name>Areas.Lib</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup />
+  <ItemGroup>
+    <EmbeddedResource Include="Views\AsyncUpload\UploadaFile.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Home\Index.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Shared\_Layout.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\Shared\Error.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Views\SignalRHub\MessageBroadcaster.cshtml" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\Web.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="Views\_ViewStart.cshtml" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

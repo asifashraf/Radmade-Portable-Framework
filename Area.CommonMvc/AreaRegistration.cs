@@ -9,11 +9,16 @@ namespace Area.CommonMvc
 
         public override void RegisterArea(AreaRegistrationContext context, IApplicationBus bus)
         {
+            context.MapRoute("resources",
+                AreaName + "/Resource/{resourceName}",
+                new { Controller = "EmbeddedResource", action = "Index" },
+                new[] { "MvcContrib.PortableAreas" });
+
+            base.RegisterArea(context, bus);
+
             context.MapRoute(AREA, AREA + "/{controller}/{action}/{id}",
                 new { controller = "Ping", action = "Index", id = UrlParameter.Optional });
 
-
-            RegisterAreaEmbeddedResources();
         }
 
         public override string AreaName

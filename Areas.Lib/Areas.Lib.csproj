@@ -45,6 +45,26 @@
   <ItemGroup>
     <Compile Include="AppEnvironment\AppDomainHelper.cs" />
     <Compile Include="Encryption\Crypto.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\AsyncProgressWorkerRequest.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\ByteComparer.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\FieldHeaderInfo.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\FileHeaderInfo.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\HandlerRouter.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\PostedFile.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\ProgressData.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\ProgressWorkerRequest.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\RadAsyncUploadContext.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\RadProgressContext.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\RadUploadContext.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\RadUploadHttpModule.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\RadUploadProgressData.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\RequestField.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\RequestParser.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\RequestStateStore.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\SecurityHelper.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\TFunc.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\UploadedFile.cs" />
+    <Compile Include="HttpModules\FileUploadHelper\UploadedFileCollection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="WebAuth\Auth.cs" />
     <Compile Include="WebAuth\AuthorizationAttribute.cs" />

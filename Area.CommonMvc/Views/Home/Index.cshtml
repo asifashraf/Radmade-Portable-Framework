@@ -1,0 +1,31 @@
+﻿@{
+    ViewBag.Title = "Home";
+}
+<div class="tabbable tabs-left">
+
+    please navigate to the testing controller
+
+</div>
+
+<div class="well">
+    <ul class="nav nav-list">
+        <li class="nav-header">Ping</li>
+        <li><a href="/common/ping/Index">Index</a></li>
+        <li><a href="/common/ping/GetBrowserInfo">GetBrowserInfo</a></li>
+        <li><a href="/common/ping/RequestStatus">RequestStatus</a></li>
+    </ul>
+</div>
+
+<div class="well">
+    <ul class="nav nav-list">
+        <li class="nav-header">Async Uploader</li>
+        <li>@Html.ActionLink("upload a file", "UploadaFile", "AsyncUpload")</li>
+    </ul>
+</div>
+
+<div class="well">
+    <ul class="nav nav-list">
+        <li class="nav-header">SignalR</li>
+        <li>@Html.ActionLink("Message Broadcaster", "MessageBroadcaster", "SignalRHub")</li>
+    </ul>
+</div>

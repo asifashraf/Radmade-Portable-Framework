@@ -1,0 +1,100 @@
+﻿@{
+    ViewBag.Title = "Index";
+    Layout = "~/Views/Shared/_Layout.cshtml";
+}
+
+<h2>Index</h2>
+@{
+    var guid = Guid.NewGuid().ToString();
+}
+@*@using (Html.BeginForm("CaptureFile", "AsyncUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))*@
+<form action="/common/AsyncUpload/CaptureFile?RadUrid=@guid" method="POST" enctype="multipart/form-data">
+    <input type='file' name='file' id='file' />
+    
+    <input type="submit" value="submit" />
+    
+    <input type="button" value="Ajax" class="ajax-button" />
+    
+    <input type="hidden" id="unique" name="unique" value="@guid" class="unique"/>
+    
+    <div class="full" style="width: 500px; background-color: yellow; height: 60px;min-height: 60px; padding: 2px;">
+        <div class="partial" style="width: 0px; background-color: Green; height: 58px;min-height: 58px;">
+        
+        </div>
+
+    </div>
+    <div class="status" style="width: 500px;  font-size: 16px; background-color: White; height: 25px;min-height: 25px; padding: 2px;">
+            
+        </div>
+
+
+</form>
+
+<script type="text/javascript">
+
+    $(function () {
+
+        $('form').submit(function () {
+            pinging($('form').find('.unique').val());
+        });
+
+        $('.ajax-button').click(function (e) {
+
+            var el = $(this);
+
+            el.closest('form').submit();
+
+            e.preventDefault();
+
+            return false;
+        });
+
+    });
+
+
+    function pinging(unique) {
+        (function (unique) {
+
+            window.doing = window.setInterval(function () {
+
+                $.ajax({
+                    url: '/common/AsyncUpload/GetStatus?RadUrid=' + '@guid',
+                    success: function (response) {
+                        $('.status').append('<hr />' + response);
+                    }
+                });
+                return;
+                $.ajax(
+            {
+                url: '/common/AsyncUpload/GetLatestBytes?unique=' + unique,
+                type: 'json',
+                success: function (data) {
+                    if (data.bytes) {
+                        var bytes = window.parseInt(data.bytes);
+                        var total = window.parseInt(data.total);
+
+                        var calc = bytes / (total / 100);
+
+                        $('.unique[value="' + unique + '"]').closest('form').find('.status').text('total: ' + (total / 1024).toString() + 'kb,      up: ' + (bytes / 1024).toString() + 'kb,        percent : ' + parseInt(calc).toString() + '%');
+
+                        $('.unique[value="' + unique + '"]').closest('form').find('.partial').css('width', calc.toString() + '%');
+
+                        if (calc == 100) {
+                            stopPinging(unique);
+                        }
+                    }
+                }
+
+            }
+        );
+
+            }, 1000);
+
+        })(unique);        
+    }
+
+    function stopPinging() {
+        window.clearInterval(window.doing);
+    }
+ 
+</script>

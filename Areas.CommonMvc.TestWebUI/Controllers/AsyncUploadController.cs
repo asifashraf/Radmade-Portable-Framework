@@ -6,11 +6,8 @@ using Areas.Lib.Web;
 
 namespace Areas.CommonMvc.TestWebUI.Controllers
 {
-    public class AsyncUploadController : BaseController
+    /*public class AsyncUploadController : BaseController
     {
-        //
-        // GET: /AsyncUpload/
-
         public ActionResult UploadaFile()
         {
             return View();
@@ -77,5 +74,5 @@ namespace Areas.CommonMvc.TestWebUI.Controllers
             return Json(result);
 
         }
-    }
+    }*/
 }
