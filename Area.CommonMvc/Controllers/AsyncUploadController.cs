@@ -19,23 +19,18 @@ namespace Area.CommonMvc.Controllers
         {
             if (file != null)
             {
-
-                /*var module = new RadUploadHttpModule();
-                module.CaptureWorkerRequest(HttpContext.ApplicationInstance);*/
-
-                var sr = new StreamReader(file.InputStream);
-                HttpContext.Cache["total" + unique] = file.ContentLength;
-
-                var destFile = Server.MapPath("~/uploads/" + Guid.NewGuid().ToString() + file.FileName);
-                HttpContext.Cache["dest_" + unique] = destFile;
-                const int bufferSize = 256;
-                var buffer = new byte[bufferSize];
+                const string dir = @"C:\upload-trash\";
+                var di = new DirectoryInfo(dir);
+                if(!di.Exists)
+                {
+                    di.Create();
+                }
+                var destFile = dir + Guid.NewGuid().ToString() + file.FileName;
+                const int bufferSize = 512;
                 var inStream = file.InputStream;
-                int bytesCopied = 0;
-                UInt64 totalBytes = 0;
                 inStream.CopyTo(System.IO.File.Create(destFile), bufferSize);
-                return;
-                using (var outStream = System.IO.File.Open(
+                
+                /*using (var outStream = System.IO.File.Open(
                     destFile, FileMode.Create,
                     FileAccess.Write, FileShare.None))
                 {
@@ -51,13 +46,15 @@ namespace Area.CommonMvc.Controllers
                             //System.Threading.Thread.Sleep(50);
                         }
                     } while (bytesCopied > 0);
-                }
+                }*/
+
+
             }
 
             //return Json(null);
         }
 
-        public JsonResult GetLatestBytes(string unique)
+        /*public JsonResult GetLatestBytes(string unique)
         {
             if(HttpContext.Cache["dest_" + unique] != null)
             {
@@ -100,9 +97,9 @@ namespace Area.CommonMvc.Controllers
 
             return Json(result);
 
-        }
+        }*/
 
-        public void GetStatus()
+        /*public void GetStatus()
         {
             var response = HttpContext.Response;
             try
@@ -123,6 +120,6 @@ namespace Area.CommonMvc.Controllers
             {
                 response.Write("Internal server error");
             }
-        }
+        }*/
     }
 }
