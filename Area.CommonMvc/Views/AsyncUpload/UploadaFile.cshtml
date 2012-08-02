@@ -59,7 +59,7 @@
 
                 $.ajax({
                     //  /Telerik.RadUploadProgressHandler.ashx?RadUrid=6c03b86a-dc47-4651-b5ce-cd10742db985&RadUploadTimeStamp=1343907887070&
-                    url: '/UploadProgress.ashx?RadUrid=@guid&RadUploadTimeStamp=' + Math.random().toString(),
+                    url: '/UploadStatus.ashx?RadUrid=@guid&RadUploadTimeStamp=' + Math.random().toString(),
                     type: 'get',
                     dataType: 'text',
                     success: function (res) {
