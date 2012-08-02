@@ -19,7 +19,7 @@ namespace Area.CommonMvc.Controllers
         {
             if (file != null)
             {
-                const string dir = @"C:\upload-trash\";
+                var dir = Server.MapPath(@"~/uploads/");
                 var di = new DirectoryInfo(dir);
                 if(!di.Exists)
                 {
@@ -29,7 +29,7 @@ namespace Area.CommonMvc.Controllers
                 const int bufferSize = 512;
                 var inStream = file.InputStream;
                 inStream.CopyTo(System.IO.File.Create(destFile), bufferSize);
-                
+                inStream.Close();
                 /*using (var outStream = System.IO.File.Open(
                     destFile, FileMode.Create,
                     FileAccess.Write, FileShare.None))
