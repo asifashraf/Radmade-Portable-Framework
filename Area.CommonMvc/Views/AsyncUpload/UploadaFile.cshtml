@@ -58,9 +58,25 @@
             window.doing = window.setInterval(function () {
 
                 $.ajax({
-                    url: '/common/AsyncUpload/GetStatus?RadUrid=' + '@guid',
-                    success: function (response) {
-                        $('.status').append('<hr />' + response);
+                    //  /Telerik.RadUploadProgressHandler.ashx?RadUrid=6c03b86a-dc47-4651-b5ce-cd10742db985&RadUploadTimeStamp=1343907887070&
+                    url: '/Telerik.RadUploadProgressHandler.ashx?RadUrid=@guid&RadUploadTimeStamp=' + Math.random().toString(),
+                    type: 'get',
+                    dataType: 'text',
+                    success: function (res) {
+                    
+                        eval(res);
+
+                        var data = rawProgressData;
+
+                        var bytes = window.parseInt(data.RadUpload.Bytes);
+                        var total = window.parseInt(data.RadUpload.RequestSize);
+                        var calc = bytes / (total / 100);
+                        $('.status').text('total: ' + (total / 1024).toString() + 'kb,      up: ' + (bytes / 1024).toString() + 'kb,        percent : ' + parseInt(calc).toString() + '%');
+                        $('.partial').css('width', calc.toString() + '%');
+
+                    },
+                    error: function (error) {
+                        console.log(error);
                     }
                 });
                 return;

@@ -115,7 +115,7 @@ namespace Area.CommonMvc.Controllers
                 }
                 else
                 {
-                    response.ContentType = "text/plain";
+                    response.ContentType = "application/json";
                     RadProgressContext.Current.Serialize(response.Output);
                 }
             }
