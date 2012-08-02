@@ -9,6 +9,9 @@ Output.Tests/*.dll
 Output.Tests/*.pdb
 Output.Tests/*.xml
 
+solution\Areas.CommonMvc.TestWebUI.Azure\bin
+solution\Areas.CommonMvc.TestWebUI.Azure\obj
+
 *_ReSharper*
 *.suo
 # mstest test results
