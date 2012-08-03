@@ -32,6 +32,7 @@
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="System" />
+    <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
@@ -48,6 +49,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppEnvironment\AppDomainHelper.cs" />
+    <Compile Include="Config\SettingsHelper.cs" />
     <Compile Include="Encryption\Crypto.cs" />
     <Compile Include="HttpModules\FileUploadHelper\AsyncProgressWorkerRequest.cs" />
     <Compile Include="HttpModules\FileUploadHelper\ByteComparer.cs" />
@@ -82,11 +84,19 @@
     <Compile Include="WebAuth\WebAuthCookieNotFoundException.cs" />
     <Compile Include="WebAuth\WebAuthSettings.cs" />
     <Compile Include="Web\AreaRegistrationUtil.cs" />
+    <Compile Include="Web\AutoCssReference.cs" />
+    <Compile Include="Web\AutoJsReference.cs" />
     <Compile Include="Web\BaseController.cs" />
     <Compile Include="Web\JsonMessage.cs" />
+    <Compile Include="Web\MvcViewsHelpersConfig.cs" />
     <Compile Include="Web\ResultType.cs" />
   </ItemGroup>
-  <ItemGroup />
+  <ItemGroup>
+    <ProjectReference Include="..\Areas.DotNetExtensions\Areas.DotNetExtensions.csproj">
+      <Project>{891BC139-7F80-41BE-8AF8-F0D400A6068B}</Project>
+      <Name>Areas.DotNetExtensions</Name>
+    </ProjectReference>
+  </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
        Other similar extension points exist, see Microsoft.Common.targets.
