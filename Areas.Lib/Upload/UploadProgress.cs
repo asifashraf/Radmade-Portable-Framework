@@ -1,4 +1,4 @@
-﻿using Telerik.Web.UI.Upload;
+﻿using Telerik.Web.UI;
 
 namespace Areas.Lib.Upload
 {
