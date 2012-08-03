@@ -1,11 +1,11 @@
-﻿using System.Web;
+﻿using Areas.Lib.UploadProgress;
 
 namespace Areas.CommonMvc.TestWebUI
 {
     /// <summary>
     /// Summary description for UploadStatus
     /// </summary>
-    public class UploadStatus : Lib.Upload.UploadProgress
+    public class UploadStatus : UploadProgress
     {
 
     }

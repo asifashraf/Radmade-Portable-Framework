@@ -2,7 +2,6 @@
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
-using Areas.Lib.HttpModules.FileUploadHelper;
 using Areas.Lib.Web;
 
 namespace Area.CommonMvc.Controllers
@@ -53,73 +52,5 @@ namespace Area.CommonMvc.Controllers
 
             //return Json(null);
         }
-
-        /*public JsonResult GetLatestBytes(string unique)
-        {
-            if(HttpContext.Cache["dest_" + unique] != null)
-            {
-                var destFile = HttpContext.Cache["dest_" + unique].ToString();
-
-                var file = new FileInfo(destFile);
-
-                if(file.Exists)
-                {
-                    System.Threading.Thread.Sleep(100);
-                    var totalBytes = Convert.ToInt64(HttpContext.Cache["total" + unique]);
-                    return Json(new
-                    {
-                        bytes = file.Length,
-                        total = totalBytes
-                    });
-                }
-            }
-
-
-            if (HttpContext.Cache["bytes" + unique] == null)
-            {
-                return Json(new {bytes = 0, total = 0});
-            }
-            
-            var bytes_ = Convert.ToInt64(HttpContext.Cache["bytes" + unique]);
-            var total_ = Convert.ToInt64(HttpContext.Cache["total" + unique]);
-            if(bytes_ == total_)
-            {
-                HttpContext.Cache["bytes" + unique] = null;
-                HttpContext.Cache["total" + unique] = null;
-            }
-            
-            var result = new
-                             {
-                                 bytes = bytes_,
-                                 total = total_
-                             };
-            
-
-            return Json(result);
-
-        }*/
-
-        /*public void GetStatus()
-        {
-            var response = HttpContext.Response;
-            try
-            {
-                bool flag;
-                if (bool.TryParse(HttpContext.Request.QueryString["AsyncProgress"], out flag))
-                {
-                    response.ContentType = "application/json";
-                    RadProgressContext.Current.Serialize(response.Output, true);
-                }
-                else
-                {
-                    response.ContentType = "application/json";
-                    RadProgressContext.Current.Serialize(response.Output);
-                }
-            }
-            catch (Exception)
-            {
-                response.Write("Internal server error");
-            }
-        }*/
     }
 }
