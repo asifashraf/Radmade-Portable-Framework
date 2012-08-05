@@ -14,5 +14,7 @@ solution\Areas.CommonMvc.TestWebUI.Azure\obj
 
 *_ReSharper*
 *.suo
+*.cache
+*.user
 # mstest test results
 TestResults
