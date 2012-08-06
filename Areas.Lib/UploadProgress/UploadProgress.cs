@@ -3,7 +3,7 @@
     using System;
     using System.Web;
 
-    public class UploadProgress : IHttpHandler
+    public class UploadProgressHandler : IHttpHandler
     {
         public const string DefaultUrl = "~/Telerik.RadUploadProgressHandler.ashx";
 

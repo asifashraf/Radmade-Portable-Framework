@@ -1,6 +1,6 @@
 ﻿@{
     ViewBag.Title = "Index";
-    Layout = "~/Views/Shared/_Layout.cshtml";
+    Layout = "~/areas/common/Views/Shared/_Layout.cshtml";
 }
 
 <h2>Index</h2>
@@ -67,13 +67,13 @@
                         eval(res);
 
                         var data = rawProgressData;
-
-                        var bytes = window.parseInt(data.RadUpload.Bytes);
-                        var total = window.parseInt(data.RadUpload.RequestSize);
-                        var calc = bytes / (total / 100);
-                        $('.status').text('total: ' + (total / 1024).toString() + 'kb,      up: ' + (bytes / 1024).toString() + 'kb,        percent : ' + parseInt(calc).toString() + '%');
-                        $('.partial').css('width', calc.toString() + '%');
-
+                        if(data.RadUpload) {
+                            var bytes = window.parseInt(data.RadUpload.Bytes);
+                            var total = window.parseInt(data.RadUpload.RequestSize);
+                            var calc = bytes / (total / 100);
+                            $('.status').text('total: ' + (total / 1024).toString() + 'kb,      up: ' + (bytes / 1024).toString() + 'kb,        percent : ' + parseInt(calc).toString() + '%');
+                            $('.partial').css('width', calc.toString() + '%');
+                        }
                     },
                     error: function (error) {
                         console.log(error);

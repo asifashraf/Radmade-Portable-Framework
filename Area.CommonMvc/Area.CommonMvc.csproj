@@ -38,6 +38,7 @@
     <Reference Include="System.Core" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="System.Web.WebPages, Version=1.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="System.Xml.Linq" />
     <Reference Include="System.Data.DataSetExtensions" />
     <Reference Include="Microsoft.CSharp" />
@@ -54,7 +55,7 @@
     <Content Include="areas_web.config.txt" />
     <EmbeddedResource Include="Scripts\my.js" />
     <EmbeddedResource Include="Content\css\com.css" />
-    <EmbeddedResource Include="Content\css\Site.css" />
+    <EmbeddedResource Include="Content\Site.css" />
     <EmbeddedResource Include="Content\js\jquery-1.7.2.min.js" />
     <EmbeddedResource Include="Content\Lib\bootstrap\bootstrap\css\bootstrap-responsive.css" />
     <EmbeddedResource Include="Content\Lib\bootstrap\bootstrap\css\bootstrap-responsive.min.css" />
