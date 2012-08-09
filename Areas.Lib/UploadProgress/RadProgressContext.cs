@@ -8,6 +8,7 @@ namespace Areas.Lib.UploadProgress
     using System.IO;
     using System.Web;
     using Areas.Lib.UploadProgress.Upload;
+    using Areas.Lib.UploadProgress.Upload.AsyncUploadModels;
 
     public sealed class RadProgressContext : ProgressData
     {
@@ -20,9 +21,33 @@ namespace Areas.Lib.UploadProgress
             return (context.Application["RadProgressContext" + RadUploadContext.GetUploadUniqueIdentifier(context)] as RadProgressContext);
         }
 
+        private static RadProgressContext GetProgressContext(UploadTimer timer)
+        {
+            return (timer.HttpContext.Application["RadProgressContext" + timer.UniqueId] as RadProgressContext);
+        }
+
         private ProgressData GetProgressData()
         {
             RadUploadContext current = RadUploadContext.GetCurrent(HttpContext.Current);
+            if ((current != null) && !current.UploadComplete)
+            {
+                return current.GetProgressData();
+            }
+            return null;
+        }
+
+        private ProgressData GetProgressData(RadUploadContext current)
+        {
+            if ((current != null) && !current.UploadComplete)
+            {
+                return current.GetProgressData();
+            }
+            return null;
+        }
+
+        private ProgressData GetProgressData(UploadTimer timer)
+        {
+            RadUploadContext current = timer.RadUploadContext;
             if ((current != null) && !current.UploadComplete)
             {
                 return current.GetProgressData();
@@ -48,6 +73,19 @@ namespace Areas.Lib.UploadProgress
             }
         }
 
+        public string SerializeToString(UploadTimer timer)
+        {
+            ProgressData progressData = this.GetProgressData(timer);
+            if (progressData == null)
+            {
+                return base.SerializeToString(timer);
+            }
+            else
+            {
+                return progressData.SerializeToString(timer);
+            }
+        }
+
         public void Serialize(TextWriter writer, bool isJSON)
         {
             if (!isJSON)
@@ -63,7 +101,7 @@ namespace Areas.Lib.UploadProgress
                 }
                 else
                 {
-                    JavaScriptSerializer serializer = new JavaScriptSerializer();
+                    var serializer = new JavaScriptSerializer();
                     writer.Write(serializer.Serialize(progressData));
                 }
             }
@@ -73,6 +111,13 @@ namespace Areas.Lib.UploadProgress
         {
             RadProgressContext context2 = new RadProgressContext();
             context.Application["RadProgressContext" + RadUploadContext.GetUploadUniqueIdentifier(context)] = context2;
+            return context2;
+        }
+
+        private static RadProgressContext SetProgressContext(UploadTimer timer)
+        {
+            var context2 = new RadProgressContext();
+            timer.HttpContext.Application["RadProgressContext" + timer.UniqueId] = context2;
             return context2;
         }
 
@@ -87,6 +132,16 @@ namespace Areas.Lib.UploadProgress
                 }
                 return progressContext;
             }
+        }
+
+        public static RadProgressContext GetCurrent(UploadTimer timer)
+        {
+            var progressContext = GetProgressContext(timer);
+            if (progressContext == null)
+            {
+                progressContext = SetProgressContext(timer);
+            }
+            return progressContext;
         }
     }
 }

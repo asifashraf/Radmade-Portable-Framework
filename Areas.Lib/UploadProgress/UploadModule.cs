@@ -5,8 +5,11 @@ namespace Areas.Lib.UploadProgress
     using System.Reflection;
     using System.Runtime.CompilerServices;
     using System.Web;
+    using System.Web.Script.Serialization;
+
     using Areas.Lib.UploadProgress.AsyncUpload;
     using Areas.Lib.UploadProgress.Upload;
+    using Areas.Lib.UploadProgress.Upload.AsyncUploadModels;
 
     public class UploadModule : IHttpModule
     {
@@ -18,15 +21,69 @@ namespace Areas.Lib.UploadProgress
             this.Context = this.Application.Context;
             if (this.IsUploadRequest(this.Application))
             {
-                FieldInfo workerRequestField = this.GetWorkerRequestField();
+                var workerRequestField = this.GetWorkerRequestField();
                 if ((workerRequestField != null))
                 {
-                    HttpWorkerRequest workerRequest = workerRequestField.GetValue(this.Context.Request) as HttpWorkerRequest;
+                    var workerRequest = workerRequestField.GetValue(this.Context.Request) as HttpWorkerRequest;
                     if (workerRequest != null)
                     {
-                        ProgressWorkerRequest progressWorker = this.GetProgressWorker(workerRequest);
-                        this.UpdateUploadContext(progressWorker);
+                        var progressWorker = this.GetProgressWorker(workerRequest);
+                        var uploadContext = this.UpdateUploadContext(progressWorker);
                         workerRequestField.SetValue(this.Context.Request, progressWorker);
+                        
+                        //added Timer
+                        var uploadTrackerService = new UploadTrackingsService();
+
+                        var uploadTimer = new UploadTimer
+                        {
+                            StartDate = DateTime.Now,
+                            Enabled = true,
+                            Interval = 3000,
+                            UniqueId = HttpContext.Current.Request["RadUrid"],
+                            HttpContext = System.Web.HttpContext.Current,
+                            ProgressWorkerRequest = progressWorker,
+                            RadUploadContext = uploadContext
+                        };
+
+                        var taskInDatabase = uploadTrackerService.CreateTask(uploadTimer.UniqueId, string.Empty);
+
+                        uploadTimer.TaskId = taskInDatabase.TaskId;
+
+                        uploadTimer.Elapsed += (senderObject, args) =>
+                        {
+                            var timer = senderObject as UploadTimer;
+
+                            timer.Stop();
+
+                            var progressContext = RadProgressContext.GetCurrent(timer);
+
+                            var serializedData = progressContext.SerializeToString(timer);
+
+                            var jss = new JavaScriptSerializer();
+
+                            var checkpoint = jss.Deserialize<UploadCheckpointResult>(serializedData);
+
+                            var updatedTracking = uploadTrackerService.UpdateTaskData(timer.TaskId, serializedData, checkpoint);
+
+                            var span = DateTime.Now - updatedTracking.StartTime;
+
+                            //dispose timer in these cases
+                            if(
+                                (updatedTracking.StartedProgressingAt.IsNotNull() && updatedTracking.InProgress == false)
+                                ||
+                            (span.Hours >= 12)
+                                )
+                            {
+                                timer.Dispose();
+                            }else
+                            {
+                                //start timer again
+                            timer.Start();
+                            }
+                        }; //end callback
+
+                        //Now start time for the first time
+                        uploadTimer.Start();
                     }
                 }
             }
@@ -82,7 +139,7 @@ namespace Areas.Lib.UploadProgress
         {
             if (this.IsAsyncUploadRequest)
             {
-                RadAsyncUploadContext current = RadUploadContext.Current as RadAsyncUploadContext;
+                var current = RadUploadContext.Current as RadAsyncUploadContext;
                 if (current == null)
                 {
                     return;
@@ -118,21 +175,24 @@ namespace Areas.Lib.UploadProgress
             }
         }
 
-        private void UpdateUploadContext(ProgressWorkerRequest progressWorker)
+        private RadUploadContext UpdateUploadContext(ProgressWorkerRequest progressWorker)
         {
+            RadUploadContext uploadContext = null;
             if (RadUploadContext.GetCurrent(this.Context) == null)
             {
-                RadUploadContext.SetUploadContext(this.Context, this.CreateContext(progressWorker));
+                uploadContext = RadUploadContext.SetUploadContext(this.Context, this.CreateContext(progressWorker));
             }
             else if (this.IsAsyncUploadRequest)
             {
-                RadAsyncUploadContext current = RadUploadContext.Current as RadAsyncUploadContext;
+                var current = RadUploadContext.Current as RadAsyncUploadContext;
                 if (current != null)
                 {
+                    uploadContext = current;
                     current.RequestLength += this.Context.Request.ContentLength;
                     current.UploadsInProgress++;
                 }
             }
+            return uploadContext;
         }
 
         private HttpApplication Application
@@ -144,6 +204,8 @@ namespace Areas.Lib.UploadProgress
         }
 
         public HttpContext Context { get; set; }
+
+        public System.Timers.Timer Timer { get; set; }
 
         private bool IsAsyncUploadRequest
         {

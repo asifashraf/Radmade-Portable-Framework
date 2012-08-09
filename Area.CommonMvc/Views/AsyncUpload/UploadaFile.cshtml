@@ -8,12 +8,11 @@
     var guid = Guid.NewGuid().ToString();
 }
 @*@using (Html.BeginForm("CaptureFile", "AsyncUpload", FormMethod.Post, new { enctype = "multipart/form-data" }))*@
-<form action="/common/AsyncUpload/CaptureFile?RadUrid=@guid" method="POST" enctype="multipart/form-data">
+
+<form action="/common/AsyncUpload/CaptureFile?RadUrid=@guid" method="POST" enctype="multipart/form-data" target="upload_target" >
     <input type='file' name='file' id='file' />
     
-    <input type="submit" value="submit" />
-    
-    <input type="button" value="Ajax" class="ajax-button" />
+    <input type="button" value="submit" class="button-upload-file" />
     
     <input type="hidden" id="unique" name="unique" value="@guid" class="unique"/>
     
@@ -21,96 +20,95 @@
         <div class="partial" style="width: 0px; background-color: Green; height: 58px;min-height: 58px;">
         
         </div>
-
     </div>
     <div class="status" style="width: 500px;  font-size: 16px; background-color: White; height: 25px;min-height: 25px; padding: 2px;">
             
-        </div>
-
-
+    </div>
 </form>
-
+<iframe id="upload_target" name="upload_target" src="#" style="width:0;height:0;border:none; visibility: hidden"></iframe> 
 <script type="text/javascript">
 
     $(function () {
 
-        $('form').submit(function () {
-            pinging($('form').find('.unique').val());
+        $('.button-upload-file').live('click', function () {
+            $(this).closest('form').find('.status').text('Please wait connecting...');
+            $(this).closest('form').find('.partial').css('width', '0%');
+            (function (btn) {
+                $.get('/common/AsyncUpload/CreateGuid?r=' + Math.random().toString(), function (gd) {
+                    var form = $(btn).closest('form');
+                    form.data('clientId', gd.data);
+                    form.attr('action', '/common/AsyncUpload/CaptureFile?RadUrid=' + gd.data.toString());
+                    form.attr('data-id', gd.data);
+                    pinging(gd.data);
+                    window.setTimeout(function () {
+                        var form2 = $(btn).closest('form');
+                        form2.submit();
+                    }, 2000);
+                });
+            })(this);
+
         });
-
-        $('.ajax-button').click(function (e) {
-
-            var el = $(this);
-
-            el.closest('form').submit();
-
-            e.preventDefault();
-
-            return false;
-        });
-
     });
 
 
     function pinging(unique) {
-        (function (unique) {
+                (function (unique) {
+                    window['ping' + unique] = window.setInterval(function () {
+                        $.ajax({
+                            //  /Telerik.RadUploadProgressHandler.ashx?RadUrid=6c03b86a-dc47-4651-b5ce-cd10742db985&RadUploadTimeStamp=1343907887070&
+                            url: '/UploadStatus.ashx?RadUrid=' + unique + '&RadUploadTimeStamp=' + Math.random().toString(),
+                            type: 'get',
+                            dataType: 'json',
+                            success: function (data) {
+                                if (typeof data === 'undefined' || data == null || !data) {
+                                    if (window.console) {
+                                        console.log('null result');
+                                    }
+                                    return;
+                                }
 
-            window.doing = window.setInterval(function () {
+                                if (data.ClientId) {
 
-                $.ajax({
-                    //  /Telerik.RadUploadProgressHandler.ashx?RadUrid=6c03b86a-dc47-4651-b5ce-cd10742db985&RadUploadTimeStamp=1343907887070&
-                    url: '/UploadStatus.ashx?RadUrid=@guid&RadUploadTimeStamp=' + Math.random().toString(),
-                    type: 'get',
-                    dataType: 'text',
-                    success: function (res) {
-                    
-                        eval(res);
+                                    var form = $('form[data-id="' + data.ClientId + '"]');
+                                    var partial = form.find('.partial');
+                                    var status = form.find('.status');
+                                    if (data.Completed === true) {
 
-                        var data = rawProgressData;
-                        if(data.RadUpload) {
-                            var bytes = window.parseInt(data.RadUpload.Bytes);
-                            var total = window.parseInt(data.RadUpload.RequestSize);
-                            var calc = bytes / (total / 100);
-                            $('.status').text('total: ' + (total / 1024).toString() + 'kb,      up: ' + (bytes / 1024).toString() + 'kb,        percent : ' + parseInt(calc).toString() + '%');
-                            $('.partial').css('width', calc.toString() + '%');
-                        }
-                    },
-                    error: function (error) {
-                        console.log(error);
-                    }
-                });
-                return;
-                $.ajax(
-            {
-                url: '/common/AsyncUpload/GetLatestBytes?unique=' + unique,
-                type: 'json',
-                success: function (data) {
-                    if (data.bytes) {
-                        var bytes = window.parseInt(data.bytes);
-                        var total = window.parseInt(data.total);
+                                        if (window.console) {
+                                            window.console.log('Task completed');
+                                        }
 
-                        var calc = bytes / (total / 100);
+                                        stopPinging(data.ClientId);
+                                        partial.css('width', '100%');
+                                        status.text('Total = ' + data.PrimaryTotal + ' ; Uploaded: ' + data.PrimaryTotal);
+                                        alert('upload completed successfully');
+                                        return;
+                                    }
 
-                        $('.unique[value="' + unique + '"]').closest('form').find('.status').text('total: ' + (total / 1024).toString() + 'kb,      up: ' + (bytes / 1024).toString() + 'kb,        percent : ' + parseInt(calc).toString() + '%');
+                                    if (data.InProgress) {
+                                        status.text('Total = ' + data.PrimaryTotal + ' ; Uploaded: ' + data.PrimaryValue);
+                                        var calc = data.Done / (data.Total / 100);
+                                        partial.css('width', calc.toString() + '%');
+                                        return;
+                                    } else {
+                                        console.log('not in progress');
+                                        return;
+                                    }
+                                } //end if client id
 
-                        $('.unique[value="' + unique + '"]').closest('form').find('.partial').css('width', calc.toString() + '%');
 
-                        if (calc == 100) {
-                            stopPinging(unique);
-                        }
-                    }
-                }
-
-            }
-        );
-
-            }, 1000);
-
-        })(unique);        
+                            }, /*end succes function*/
+                            error: function (error) {
+                                console.log(error);
+                            }
+                        }); //ends ajax call
+                    }, 2000);
+                })(unique);     
     }
 
-    function stopPinging() {
-        window.clearInterval(window.doing);
+    function stopPinging(unique) {
+        window.clearInterval(window['ping' + unique]);
     }
  
 </script>
+

@@ -102,7 +102,7 @@ namespace Areas.Lib.UploadProgress
             }
             return progressData;
         }
-
+        
         private decimal GetSpeed()
         {
             if (this.ElapsedMilliseconds == 0)
@@ -147,9 +147,10 @@ namespace Areas.Lib.UploadProgress
             context.Application.Remove("RadUploadContext" + GetUploadUniqueIdentifier(context));
         }
 
-        internal static void SetUploadContext(HttpContext context, RadUploadContext uploadContext)
+        internal static RadUploadContext SetUploadContext(HttpContext context, RadUploadContext uploadContext)
         {
             context.Application["RadUploadContext" + GetUploadUniqueIdentifier(context)] = uploadContext;
+            return uploadContext;
         }
 
         public static RadUploadContext Current

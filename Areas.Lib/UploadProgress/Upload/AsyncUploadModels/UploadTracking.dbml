@@ -1,0 +1,26 @@
+﻿<?xml version="1.0" encoding="utf-8"?><Database Name="mycasting" EntityNamespace="Areas.Lib.UploadProgress.Upload.AsyncUploadModels" ContextNamespace="Areas.Lib.UploadProgress.Upload.AsyncUploadModels" Class="UploadTrackingDataContext" xmlns="http://schemas.microsoft.com/linqtosql/dbml/2007">
+  <Connection Mode="AppSettings" ConnectionString="Data Source=.\sqlexpress;Initial Catalog=mycasting;Integrated Security=True" SettingsObjectName="Areas.Lib.Properties.Settings" SettingsPropertyName="mycastingConnectionString" Provider="System.Data.SqlClient" />
+  <Table Name="dbo.UploadTrackings" Member="UploadTrackings">
+    <Type Name="UploadTracking">
+      <Column Name="TaskId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="ClientId" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="StartTime" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="UpdateTime" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="SerializedData" Type="System.String" DbType="NVarChar(1000)" CanBeNull="true" />
+      <Column Name="InProgress" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="ProgressCounters" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="CurrentOperationText" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PrimaryTotal" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="PrimaryValue" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Speed" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="TimeElapsed" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="TimeEstimated" Type="System.Decimal" DbType="Decimal(18,0)" CanBeNull="true" />
+      <Column Name="OperationComplete" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="Total" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="Done" Type="System.Decimal" DbType="Decimal(18,2)" CanBeNull="true" />
+      <Column Name="StartedProgressingAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="StoppedProgressingAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
+      <Column Name="Completed" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+    </Type>
+  </Table>
+</Database>

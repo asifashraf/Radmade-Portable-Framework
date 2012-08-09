@@ -6,6 +6,7 @@ using Areas.Lib.Web;
 
 namespace Area.CommonMvc.Controllers
 {
+
     public class AsyncUploadController : BaseController
     {
         public ActionResult UploadaFile()
@@ -13,8 +14,13 @@ namespace Area.CommonMvc.Controllers
             return View();
         }
 
+        public JsonResult CreateGuid()
+        {
+            return this.FormatJson(ResultType.data, "new guid", Guid.NewGuid().ToString());
+        }
+
         [HttpPost]
-        public void CaptureFile(HttpPostedFileBase file, string unique)
+        public ViewResult CaptureFile(HttpPostedFileBase file, string unique)
         {
             if (file != null)
             {
@@ -24,12 +30,35 @@ namespace Area.CommonMvc.Controllers
                 {
                     di.Create();
                 }
-                var destFile = dir + Guid.NewGuid().ToString() + file.FileName;
-                const int bufferSize = 512;
+                var destFile = dir + Guid.NewGuid().ToString() +Path.GetFileName(file.FileName);
+
+                
+                file.SaveAs(destFile);
+            }
+
+            return this.View();
+
+
+            /*if (HttpContext.Application["UploadInfos"] == null)
+                {
+                    HttpContext.Application["UploadInfos"] = new List<UploadTimer>();
+                }
+
+                var uploadInfos = HttpContext.Application["UploadInfos"] as List<UploadTimer>;*/
+
+            //var serviceHolder = new ServiceHolder<UploadTrackingDataContext>();
+
+
+
+            /*const int bufferSize = 512;
                 var inStream = file.InputStream;
+
+
+
                 inStream.CopyTo(System.IO.File.Create(destFile), bufferSize);
-                inStream.Close();
-                /*using (var outStream = System.IO.File.Open(
+                inStream.Close();*/
+
+            /*using (var outStream = System.IO.File.Open(
                     destFile, FileMode.Create,
                     FileAccess.Write, FileShare.None))
                 {
@@ -48,9 +77,9 @@ namespace Area.CommonMvc.Controllers
                 }*/
 
 
-            }
+        }
 
             //return Json(null);
         }
     }
-}
+
