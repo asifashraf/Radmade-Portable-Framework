@@ -1,8 +1,10 @@
 ﻿namespace Areas.Lib.UploadProgress.Upload.AsyncUploadModels
 {
     using System;
+    using System.Globalization;
 
     using Areas.Lib.LinqToSql;
+    using System.Web.Script.Serialization;
 
     public class UploadTrackingsService : AbstractService<UploadTrackingDataContext>
     {
@@ -64,9 +66,71 @@
                 }
             }
 
+            try
+            {
+                this.SaveChanges();
+            }
+            catch
+            {
+                
+            }
+            
+
+            return task;
+        }
+
+        public UploadTracking UpdateFileFullPath(string clientId, string fileFullPath)
+        {
+            var task = this.Get<UploadTracking>(ut => ut.ClientId.ToLower() == clientId.ToLower());
+
+            if (task.IsNotNull())
+            {
+                task.FileFullPath = fileFullPath;
+            }
+
             this.SaveChanges();
 
             return task;
+        }
+
+        public UploadTracking MarkAsComplete(string clientId, long contentLength, string errorText = null)
+        {
+            var task = this.Get<UploadTracking>(ut => ut.ClientId.ToLower() == clientId.ToLower());
+
+            if (task.IsNotNull())
+            {
+                task.Completed = true;
+                var mbs = (contentLength / 1024) / 1024;
+                task.PrimaryTotal = string.Format("{0}MB", mbs);
+                task.PrimaryValue = string.Format("{0}MB", mbs);
+                task.Total = mbs;
+                task.Done = mbs;
+                task.ErrorText = errorText;
+            }
+
+            this.SaveChanges();
+
+            return task;
+        }
+
+        public void Log(string clientId, string mainFunction, string title, object dataDump, string extra1, string extra2, string extra3)
+        {
+            var jss = new JavaScriptSerializer();
+
+            var log = new UploadTrackingLog
+            {
+                ClientId = clientId, DataDump = jss.Serialize(dataDump), Extra1 = extra1, Extra2 = extra2, Extra3 = extra3,
+                LogDate = DateTime.Now, MainFunction = mainFunction, Title = title
+            };
+
+            DataContext.UploadTrackingLogs.InsertOnSubmit(log);
+
+            DataContext.SubmitChanges();
+        }
+
+        public void Log(string clientId, string mainFunction, string title, object dataDump)
+        {
+            Log(clientId, mainFunction, title, dataDump, "", "", "");
         }
     }
 }

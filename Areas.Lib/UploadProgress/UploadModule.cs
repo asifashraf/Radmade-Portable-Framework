@@ -14,13 +14,15 @@ namespace Areas.Lib.UploadProgress
     public class UploadModule : IHttpModule
     {
         private HttpApplication _application;
-
+        private UploadTrackingsService uploadService;
         protected virtual void CaptureWorkerRequest(object sender, EventArgs e)
         {
-            this._application = sender as HttpApplication;
+            //added Timer
+            uploadService = new UploadTrackingsService();
+            _application = sender as HttpApplication;
             this.Context = this.Application.Context;
             if (this.IsUploadRequest(this.Application))
-            {
+            {                
                 var workerRequestField = this.GetWorkerRequestField();
                 if ((workerRequestField != null))
                 {
@@ -29,61 +31,92 @@ namespace Areas.Lib.UploadProgress
                     {
                         var progressWorker = this.GetProgressWorker(workerRequest);
                         var uploadContext = this.UpdateUploadContext(progressWorker);
-                        workerRequestField.SetValue(this.Context.Request, progressWorker);
+                        workerRequestField.SetValue(this.Context.Request, progressWorker);                      
+                        var clientId = HttpContext.Current.Request["RadUrid"];
                         
-                        //added Timer
-                        var uploadTrackerService = new UploadTrackingsService();
-
                         var uploadTimer = new UploadTimer
                         {
                             StartDate = DateTime.Now,
                             Enabled = true,
-                            Interval = 3000,
+                            Interval = 8000,
                             UniqueId = HttpContext.Current.Request["RadUrid"],
                             HttpContext = System.Web.HttpContext.Current,
                             ProgressWorkerRequest = progressWorker,
                             RadUploadContext = uploadContext
                         };
 
-                        var taskInDatabase = uploadTrackerService.CreateTask(uploadTimer.UniqueId, string.Empty);
+                        uploadService.Log(clientId, "UploadModule.CaptureWorkerRequest", "Timer initialized", 
+                            null);
 
-                        uploadTimer.TaskId = taskInDatabase.TaskId;
-
-                        uploadTimer.Elapsed += (senderObject, args) =>
+                        try
                         {
-                            var timer = senderObject as UploadTimer;
+                            var taskInDatabase = uploadService.CreateTask(uploadTimer.UniqueId, string.Empty);
 
-                            timer.Stop();
+                            uploadService.Log(clientId, "UploadModule.CaptureWorkerRequest", "uploadService.CreateTask", "Task created");
 
-                            var progressContext = RadProgressContext.GetCurrent(timer);
+                            uploadTimer.TaskId = taskInDatabase.TaskId;
 
-                            var serializedData = progressContext.SerializeToString(timer);
-
-                            var jss = new JavaScriptSerializer();
-
-                            var checkpoint = jss.Deserialize<UploadCheckpointResult>(serializedData);
-
-                            var updatedTracking = uploadTrackerService.UpdateTaskData(timer.TaskId, serializedData, checkpoint);
-
-                            var span = DateTime.Now - updatedTracking.StartTime;
-
-                            //dispose timer in these cases
-                            if(
-                                (updatedTracking.StartedProgressingAt.IsNotNull() && updatedTracking.InProgress == false)
-                                ||
-                            (span.Hours >= 12)
-                                )
+                            uploadTimer.Elapsed += (senderObject, args) =>
                             {
-                                timer.Dispose();
-                            }else
-                            {
-                                //start timer again
-                            timer.Start();
-                            }
-                        }; //end callback
 
-                        //Now start time for the first time
-                        uploadTimer.Start();
+                                try
+                                {
+                                    var timer = senderObject as UploadTimer;
+
+                                    timer.Stop();
+
+                                    var progressContext = RadProgressContext.GetCurrent(timer);
+
+                                    uploadService.Log(clientId, "uploadTimer.Elapsed", "Timer Elapsed start", null);
+
+                                    var serializedData = progressContext.SerializeToString(timer);
+
+                                    uploadService.Log(clientId, "uploadTimer.Elapsed", "serializedData", serializedData);
+
+                                    var jss = new JavaScriptSerializer();
+
+                                    var checkpoint = jss.Deserialize<UploadCheckpointResult>(serializedData);
+
+                                    var updatedTracking = uploadService.UpdateTaskData(timer.TaskId, serializedData, checkpoint);
+                                    uploadService.Log(clientId, "uploadTimer.Elapsed", "checkpoint data", checkpoint);
+                                    var span = DateTime.Now - updatedTracking.StartTime;
+
+                                    //dispose timer in these cases
+                                    if (
+                                        (updatedTracking.StartedProgressingAt.IsNotNull() && updatedTracking.InProgress == false)
+                                        ||
+                                    (span.Hours >= 12)
+                                        )
+                                    {
+                                        uploadService.Log(clientId, "uploadTimer.Elapsed", "(updatedTracking.StartedProgressingAt.IsNotNull() && updatedTracking.InProgress == false) ||(span.Hours >= 12)", "timer.Dispose();");
+                                        timer.Dispose();
+                                    }
+                                    else
+                                    {
+                                        //start timer again
+                                        timer.Start();
+                                        uploadService.Log(clientId, "uploadTimer.Elapsed", "Not finished", "timer.Start() again");
+                                    }
+                                }
+                                catch (Exception errorInElapsed)
+                                {
+                                    uploadService.Log(clientId, "uploadTimer.Elapsed", "Error in timer elapsed", "ERROR OCCUERD", errorInElapsed.Message, errorInElapsed.StackTrace, errorInElapsed.ToString());
+                                }
+
+                            }; //end callback
+
+                            //Now start time for the first time
+                            uploadService.Log(clientId, "UploadModule.CAptureWorkerRequest",
+                                "uploadTimer.Start(First time)", "Before start");
+                            uploadTimer.Start();
+                            uploadService.Log(clientId, "UploadModule.CAptureWorkerRequest",
+                                "uploadTimer.Start(First time)", "After start");
+                        }
+                        catch (Exception errorCame)
+                        {
+                            uploadService.Log(clientId, "UploadModule.CAptureWorkerRequest",
+                                "Error in CaptureWorkerRequest", "ERROR OCCUERD", errorCame.Message, errorCame.StackTrace, errorCame.ToString());
+                        }
                     }
                 }
             }

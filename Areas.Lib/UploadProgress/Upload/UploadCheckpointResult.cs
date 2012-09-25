@@ -1,6 +1,7 @@
 ﻿namespace Areas.Lib.UploadProgress.Upload
 {
     using System;
+    using Areas.Lib.UploadProgress.Upload.AsyncUploadModels;
 
     public class UploadCheckpointResult
     {
@@ -44,8 +45,41 @@
                 {
                     return 0;
                 }
-                var val = PrimaryValue.Substring(0, PrimaryValue.ToLower().IndexOf("mb"));
-                return Convert.ToDecimal(val);
+
+                var logger = new UploadTrackingsService();
+                try 
+                {
+                    var val = PrimaryValue.Substring(0, PrimaryValue.ToLower().IndexOf("mb"));
+                    return Convert.ToDecimal(val);
+                }
+                catch(Exception errorInDone) 
+                {
+                    try
+                    {
+                        var val = PrimaryValue.Substring(0, PrimaryValue.ToLower().IndexOf("kb"));
+
+                        decimal decimalValue = 0;
+
+                        if (decimal.TryParse(val, out decimalValue))
+                        {
+                            return (decimalValue / 1024);
+                        }                        
+                    }
+                    catch
+                    {
+                        try 
+                        {
+                            logger.Log("unknown", "UploadCheckpointResult.Done", "error occured", PrimaryValue);
+                        }
+                        catch 
+                        {
+
+                        }                        
+                    }
+                    
+                    return 0;
+                }
+                
             }
         }
     }

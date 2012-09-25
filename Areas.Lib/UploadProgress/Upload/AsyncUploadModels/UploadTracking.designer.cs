@@ -33,6 +33,9 @@ namespace Areas.Lib.UploadProgress.Upload.AsyncUploadModels
     partial void InsertUploadTracking(UploadTracking instance);
     partial void UpdateUploadTracking(UploadTracking instance);
     partial void DeleteUploadTracking(UploadTracking instance);
+    partial void InsertUploadTrackingLog(UploadTrackingLog instance);
+    partial void UpdateUploadTrackingLog(UploadTrackingLog instance);
+    partial void DeleteUploadTrackingLog(UploadTrackingLog instance);
     #endregion
 		
 		public UploadTrackingDataContext() : 
@@ -70,6 +73,14 @@ namespace Areas.Lib.UploadProgress.Upload.AsyncUploadModels
 			get
 			{
 				return this.GetTable<UploadTracking>();
+			}
+		}
+		
+		public System.Data.Linq.Table<UploadTrackingLog> UploadTrackingLogs
+		{
+			get
+			{
+				return this.GetTable<UploadTrackingLog>();
 			}
 		}
 	}
@@ -118,6 +129,10 @@ namespace Areas.Lib.UploadProgress.Upload.AsyncUploadModels
 		
 		private System.Nullable<bool> _Completed;
 		
+		private string _FileFullPath;
+		
+		private string _ErrorText;
+		
     #region Extensibility Method Definitions
     partial void OnLoaded();
     partial void OnValidate(System.Data.Linq.ChangeAction action);
@@ -160,6 +175,10 @@ namespace Areas.Lib.UploadProgress.Upload.AsyncUploadModels
     partial void OnStoppedProgressingAtChanged();
     partial void OnCompletedChanging(System.Nullable<bool> value);
     partial void OnCompletedChanged();
+    partial void OnFileFullPathChanging(string value);
+    partial void OnFileFullPathChanged();
+    partial void OnErrorTextChanging(string value);
+    partial void OnErrorTextChanged();
     #endregion
 		
 		public UploadTracking()
@@ -543,6 +562,300 @@ namespace Areas.Lib.UploadProgress.Upload.AsyncUploadModels
 					this._Completed = value;
 					this.SendPropertyChanged("Completed");
 					this.OnCompletedChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_FileFullPath", DbType="NVarChar(300)")]
+		public string FileFullPath
+		{
+			get
+			{
+				return this._FileFullPath;
+			}
+			set
+			{
+				if ((this._FileFullPath != value))
+				{
+					this.OnFileFullPathChanging(value);
+					this.SendPropertyChanging();
+					this._FileFullPath = value;
+					this.SendPropertyChanged("FileFullPath");
+					this.OnFileFullPathChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ErrorText", DbType="NVarChar(50)")]
+		public string ErrorText
+		{
+			get
+			{
+				return this._ErrorText;
+			}
+			set
+			{
+				if ((this._ErrorText != value))
+				{
+					this.OnErrorTextChanging(value);
+					this.SendPropertyChanging();
+					this._ErrorText = value;
+					this.SendPropertyChanged("ErrorText");
+					this.OnErrorTextChanged();
+				}
+			}
+		}
+		
+		public event PropertyChangingEventHandler PropertyChanging;
+		
+		public event PropertyChangedEventHandler PropertyChanged;
+		
+		protected virtual void SendPropertyChanging()
+		{
+			if ((this.PropertyChanging != null))
+			{
+				this.PropertyChanging(this, emptyChangingEventArgs);
+			}
+		}
+		
+		protected virtual void SendPropertyChanged(String propertyName)
+		{
+			if ((this.PropertyChanged != null))
+			{
+				this.PropertyChanged(this, new PropertyChangedEventArgs(propertyName));
+			}
+		}
+	}
+	
+	[global::System.Data.Linq.Mapping.TableAttribute(Name="dbo.UploadTrackingLogs")]
+	public partial class UploadTrackingLog : INotifyPropertyChanging, INotifyPropertyChanged
+	{
+		
+		private static PropertyChangingEventArgs emptyChangingEventArgs = new PropertyChangingEventArgs(String.Empty);
+		
+		private long _LogId;
+		
+		private System.DateTime _LogDate;
+		
+		private string _ClientId;
+		
+		private string _MainFunction;
+		
+		private string _Title;
+		
+		private string _DataDump;
+		
+		private string _Extra1;
+		
+		private string _Extra2;
+		
+		private string _Extra3;
+		
+    #region Extensibility Method Definitions
+    partial void OnLoaded();
+    partial void OnValidate(System.Data.Linq.ChangeAction action);
+    partial void OnCreated();
+    partial void OnLogIdChanging(long value);
+    partial void OnLogIdChanged();
+    partial void OnLogDateChanging(System.DateTime value);
+    partial void OnLogDateChanged();
+    partial void OnClientIdChanging(string value);
+    partial void OnClientIdChanged();
+    partial void OnMainFunctionChanging(string value);
+    partial void OnMainFunctionChanged();
+    partial void OnTitleChanging(string value);
+    partial void OnTitleChanged();
+    partial void OnDataDumpChanging(string value);
+    partial void OnDataDumpChanged();
+    partial void OnExtra1Changing(string value);
+    partial void OnExtra1Changed();
+    partial void OnExtra2Changing(string value);
+    partial void OnExtra2Changed();
+    partial void OnExtra3Changing(string value);
+    partial void OnExtra3Changed();
+    #endregion
+		
+		public UploadTrackingLog()
+		{
+			OnCreated();
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LogId", AutoSync=AutoSync.OnInsert, DbType="BigInt NOT NULL IDENTITY", IsPrimaryKey=true, IsDbGenerated=true)]
+		public long LogId
+		{
+			get
+			{
+				return this._LogId;
+			}
+			set
+			{
+				if ((this._LogId != value))
+				{
+					this.OnLogIdChanging(value);
+					this.SendPropertyChanging();
+					this._LogId = value;
+					this.SendPropertyChanged("LogId");
+					this.OnLogIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_LogDate", DbType="DateTime NOT NULL")]
+		public System.DateTime LogDate
+		{
+			get
+			{
+				return this._LogDate;
+			}
+			set
+			{
+				if ((this._LogDate != value))
+				{
+					this.OnLogDateChanging(value);
+					this.SendPropertyChanging();
+					this._LogDate = value;
+					this.SendPropertyChanged("LogDate");
+					this.OnLogDateChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_ClientId", DbType="NVarChar(50) NOT NULL", CanBeNull=false)]
+		public string ClientId
+		{
+			get
+			{
+				return this._ClientId;
+			}
+			set
+			{
+				if ((this._ClientId != value))
+				{
+					this.OnClientIdChanging(value);
+					this.SendPropertyChanging();
+					this._ClientId = value;
+					this.SendPropertyChanged("ClientId");
+					this.OnClientIdChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_MainFunction", DbType="NVarChar(50)")]
+		public string MainFunction
+		{
+			get
+			{
+				return this._MainFunction;
+			}
+			set
+			{
+				if ((this._MainFunction != value))
+				{
+					this.OnMainFunctionChanging(value);
+					this.SendPropertyChanging();
+					this._MainFunction = value;
+					this.SendPropertyChanged("MainFunction");
+					this.OnMainFunctionChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Title", DbType="NVarChar(50)")]
+		public string Title
+		{
+			get
+			{
+				return this._Title;
+			}
+			set
+			{
+				if ((this._Title != value))
+				{
+					this.OnTitleChanging(value);
+					this.SendPropertyChanging();
+					this._Title = value;
+					this.SendPropertyChanged("Title");
+					this.OnTitleChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_DataDump", DbType="NVarChar(MAX)")]
+		public string DataDump
+		{
+			get
+			{
+				return this._DataDump;
+			}
+			set
+			{
+				if ((this._DataDump != value))
+				{
+					this.OnDataDumpChanging(value);
+					this.SendPropertyChanging();
+					this._DataDump = value;
+					this.SendPropertyChanged("DataDump");
+					this.OnDataDumpChanged();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Extra1", DbType="NVarChar(4000)")]
+		public string Extra1
+		{
+			get
+			{
+				return this._Extra1;
+			}
+			set
+			{
+				if ((this._Extra1 != value))
+				{
+					this.OnExtra1Changing(value);
+					this.SendPropertyChanging();
+					this._Extra1 = value;
+					this.SendPropertyChanged("Extra1");
+					this.OnExtra1Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Extra2", DbType="NVarChar(4000)")]
+		public string Extra2
+		{
+			get
+			{
+				return this._Extra2;
+			}
+			set
+			{
+				if ((this._Extra2 != value))
+				{
+					this.OnExtra2Changing(value);
+					this.SendPropertyChanging();
+					this._Extra2 = value;
+					this.SendPropertyChanged("Extra2");
+					this.OnExtra2Changed();
+				}
+			}
+		}
+		
+		[global::System.Data.Linq.Mapping.ColumnAttribute(Storage="_Extra3", DbType="NVarChar(4000)")]
+		public string Extra3
+		{
+			get
+			{
+				return this._Extra3;
+			}
+			set
+			{
+				if ((this._Extra3 != value))
+				{
+					this.OnExtra3Changing(value);
+					this.SendPropertyChanging();
+					this._Extra3 = value;
+					this.SendPropertyChanged("Extra3");
+					this.OnExtra3Changed();
 				}
 			}
 		}

@@ -21,6 +21,21 @@
       <Column Name="StartedProgressingAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="StoppedProgressingAt" Type="System.DateTime" DbType="DateTime" CanBeNull="true" />
       <Column Name="Completed" Type="System.Boolean" DbType="Bit" CanBeNull="true" />
+      <Column Name="FileFullPath" Type="System.String" DbType="NVarChar(300)" CanBeNull="true" />
+      <Column Name="ErrorText" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+    </Type>
+  </Table>
+  <Table Name="dbo.UploadTrackingLogs" Member="UploadTrackingLogs">
+    <Type Name="UploadTrackingLog">
+      <Column Name="LogId" Type="System.Int64" DbType="BigInt NOT NULL IDENTITY" IsPrimaryKey="true" IsDbGenerated="true" CanBeNull="false" />
+      <Column Name="LogDate" Type="System.DateTime" DbType="DateTime NOT NULL" CanBeNull="false" />
+      <Column Name="ClientId" Type="System.String" DbType="NVarChar(50) NOT NULL" CanBeNull="false" />
+      <Column Name="MainFunction" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="Title" Type="System.String" DbType="NVarChar(50)" CanBeNull="true" />
+      <Column Name="DataDump" Type="System.String" DbType="NVarChar(MAX)" CanBeNull="true" />
+      <Column Name="Extra1" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Extra2" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
+      <Column Name="Extra3" Type="System.String" DbType="NVarChar(4000)" CanBeNull="true" />
     </Type>
   </Table>
 </Database>
