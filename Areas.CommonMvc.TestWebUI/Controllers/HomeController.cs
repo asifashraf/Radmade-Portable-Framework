@@ -2,10 +2,16 @@
 
 namespace Areas.CommonMvc.TestWebUI.Controllers
 {
-    public class HomeController : Controller
+    using System.Web.Script.Serialization;
+
+    using Areas.Lib.UploadProgress.Upload;
+    using Areas.Lib.Web;
+
+    public class HomeController : BaseController
     {
-         public ViewResult Index()
+         public ActionResult Index()
          {
+
              return View();
          }
     }

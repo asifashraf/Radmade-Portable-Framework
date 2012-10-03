@@ -1,0 +1,79 @@
+﻿1
+Add in web.config in system.web section
+
+        <system.web>
+			<httpModules>
+				<add name="UploadModule" type="Areas.Lib.UploadProgress.UploadModule, Areas.Lib" />
+			</httpModules>		
+		</system.web>
+
+		<httpRuntime maxRequestLength="2097151" requestValidationMode="2.0" executionTimeout="999999" />
+
+2
+Add in web.config in system.webServer section
+
+	<system.webServer>
+		  <modules runAllManagedModulesForAllRequests="true">
+		    <add name="UploadModule" type="Areas.Lib.UploadProgress.UploadModule, Areas.Lib" preCondition="managedHandler"/>
+		  </modules>
+
+		  <validation validateIntegratedModeConfiguration="false" ></validation>
+			<security>
+			  <requestFiltering>
+				<requestLimits maxAllowedContentLength="2147482624"></requestLimits>
+			  </requestFiltering>
+			</security>
+	<system.webServer>
+
+3
+On the root of the website add generic handler with name UploadStatus.ashx and code below
+	namespace Your.WebClient
+	{
+		using Areas.Lib.UploadProgress;
+
+		public class UploadStatus : UploadProgressHandler
+		{
+        
+		}
+	}
+
+4
+With Your form add RadUrid parameter in action query string
+
+5
+Add table in the database
+
+CREATE TABLE [dbo].[UploadTrackings](
+	[TaskId] [bigint] IDENTITY(1,1) NOT NULL,
+	[ClientId] [nvarchar](50) NOT NULL,
+	[StartTime] [datetime] NOT NULL,
+	[UpdateTime] [datetime] NULL,
+	[SerializedData] [nvarchar](1000) NULL,
+	[InProgress] [bit] NULL,
+	[ProgressCounters] [bit] NULL,
+	[CurrentOperationText] [nvarchar](50) NULL,
+	[PrimaryTotal] [nvarchar](50) NULL,
+	[PrimaryValue] [nvarchar](50) NULL,
+	[Speed] [nvarchar](50) NULL,
+	[TimeElapsed] [decimal](18, 2) NULL,
+	[TimeEstimated] [decimal](18, 0) NULL,
+	[OperationComplete] [bit] NULL,
+	[Total] [decimal](18, 2) NULL,
+	[Done] [decimal](18, 2) NULL,
+	[StartedProgressingAt] [datetime] NULL,
+	[StoppedProgressingAt] [datetime] NULL,
+	[Completed] [bit] NULL,
+ CONSTRAINT [PK_UploadTrackings] PRIMARY KEY CLUSTERED 
+(
+	[TaskId] ASC
+)WITH (PAD_INDEX  = OFF, STATISTICS_NORECOMPUTE  = OFF, IGNORE_DUP_KEY = OFF, ALLOW_ROW_LOCKS  = ON, ALLOW_PAGE_LOCKS  = ON) ON [PRIMARY]
+) ON [PRIMARY]
+
+GO
+
+
+
+6
+Test with this url
+/common/AsyncUpload/UploadAFile
+

@@ -5,7 +5,7 @@ namespace Areas.CommonMvc.TestWebUI
     /// <summary>
     /// Summary description for UploadStatus
     /// </summary>
-    public class UploadStatus : UploadProgress
+    public class UploadStatus : UploadProgressHandler
     {
 
     }
