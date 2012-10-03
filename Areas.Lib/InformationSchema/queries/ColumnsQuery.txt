@@ -1,0 +1,15 @@
+﻿select col.name, col.column_id, st.name as DT_name, schema_name(st.schema_id) as DT_schema, col.max_length, col.precision, col.scale, 
+bt.name as BT_name, col.collation_name, col.is_nullable, col.is_ansi_padded, col.is_rowguidcol, 
+col.is_identity, case when(idc.column_id is null) then null else CONVERT(nvarchar(40), idc.seed_value) end, case when(idc.column_id is null) then null else CONVERT(nvarchar(40), idc.increment_value) end, 
+CONVERT(bit, case when(cmc.column_id is null) then 0 else 1 end) as is_computed, 
+convert(bit, ColumnProperty(col.object_id, col.name, N'IsIdNotForRepl')) as IsIdNotForRepl, 
+col.is_replicated, col.is_non_sql_subscribed, col.is_merge_published, col.is_dts_replicated, 
+col.rule_object_id, robj.name as Rul_name, schema_name(robj.schema_id) as Rul_schema, 
+col.default_object_id, OBJECTPROPERTY(col.default_object_id, N'IsDefaultCnst') as is_defcnst, dobj.name as def_name, 
+schema_name(dobj.schema_id) as def_schema, CONVERT(bit, case when (ftc.column_id is null) then 0 else 1 end) as is_FullTextCol, 
+col_name(col.object_id, ftc.type_column_id) FT_type_column, ftc.language_id as FT_language_id, 
+case when(cmc.column_id is null) then null else cmc.definition end as formular, 
+case when(cmc.column_id is null) then null else cmc.is_persisted end as is_persisted, defCst.definition, 
+COLUMNPROPERTY(col.object_id, col.name, 'IsDeterministic') as IsDeterministic, xmlcoll.name as xmlSchema_name, 
+schema_name(xmlcoll.schema_id) as xmlSchema_schema, col.is_xml_document, col.is_sparse, col.is_column_set 
+from sys.columns col left outer join sys.types st on st.user_type_id = col.user_type_id left outer join sys.types bt on bt.user_type_id = col.system_type_id left outer join sys.objects robj on robj.object_id = col.rule_object_id and robj.type = 'R' left outer join sys.objects dobj on dobj.object_id = col.default_object_id and dobj.type = 'D' left outer join sys.default_constraints defCst on defCst.parent_object_id = col.object_id and defCst.parent_column_id = col.column_id left outer join sys.identity_columns idc on idc.object_id = col.object_id and idc.column_id = col.column_id left outer join sys.computed_columns cmc on cmc.object_id = col.object_id and cmc.column_id = col.column_id left outer join sys.fulltext_index_columns ftc on ftc.object_id = col.object_id and ftc.column_id = col.column_id left outer join sys.xml_schema_collections xmlcoll on xmlcoll.xml_Collection_id = col.xml_Collection_id where col.object_id = object_id(N'dbo.AppClients') order by col.column_id

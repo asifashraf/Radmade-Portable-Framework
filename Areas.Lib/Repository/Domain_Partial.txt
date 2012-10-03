@@ -1,0 +1,75 @@
+﻿using CollisionAnalyzer.WebUI.DataAccess;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Data.Entity;
+    using System.Linq;
+    using System.Web;
+
+    public partial class Domain
+    {
+
+
+
+        //Query
+        public IQueryable<Company> Companies
+        {
+            get
+            {
+                return Read<Company>();
+            }
+        }
+
+        //Get by primary key
+        public Company GetCompany(long companyId)
+        {
+            return Companies.Where(c => c.CompanyId == companyId).One();
+        }
+
+        //get by friendly name
+        public Company GetCompanyByName(string companyName)
+        {
+            return Companies.Where(c => c.CompanyName.ToLower() == companyName.ToLower()).One();
+        }
+
+        //Create
+        public Company CreateCompany(string address, string address2,
+            string city, string companyName, string postalCode, string region)
+        {
+            var company = new Company
+            {
+                Address = address,
+                Address2 = address2,
+                City = city,
+                CompanyName = companyName,
+                PostalCode = postalCode,
+                Region = region
+            };
+            return Create<Company>(company);
+        }
+
+        //Update
+        public Company UpdateCompany(long companyId, string address, string address2,
+            string city, string companyName, string postalCode, string region)
+        {
+            var company = GetCompany(companyId);
+            if (company != null)
+            {
+                company.Address = address;
+                company.Address2 = address2;
+                company.City = city;
+                company.CompanyName = companyName;
+                company.PostalCode = postalCode;
+                company.Region = region;
+                Update<Company>(company);
+                return company;
+            }
+            return null;
+        }
+
+        //Delete bulk and cascade
+        public void DeleteCompanies(params long[] companyIds)
+        {
+            CascadeDelete("Companies", companyIds);
+        }
+    }

@@ -1,19 +1,45 @@
-Create properties by setting Types
+Entity framework code first diagrams design
+============================================
 
-Primary key relation properties 
-Primary key navigation properties -> ICollection of child Type(Just collection, no attrib)
+Collective operations
+============================================
+Create folders for namespaces, Put empty files in proper namespace
+{namespace}Domain                      [[folder name]]
 
-foreign key relation properties
-FK Navigation properties
-Parent Type navigation property(add foreignkey attribute with FK property name)
+Add diagram files in all namespace folders
+_Diagram{namespace}Domain.cd    [[file name]]
 
-[Required] (for all) 
-(put Nullable<> for the nonstring allow null) properties
+If a ERM is available then on class diagram create all properties
 
-(for string types set)
-[MaxLenth()]
+Put  { get; set; } on all properties
 
-(for complex column names)
-DisplayName
+Create properties by setting Types on class designer
 
-Add comments on properties
+[Key] Attribute on primary key property
+
+Properties group(Pk,FK properties,Parent Navigation,Children collection,Other)
+Take away all PK,FK, navigation and collection properties and clean code,then paste back
+
+For FK properties, create navigation properties
+add [ForeignKey("")] attribute
+Go to all naviation property types and add ICollection of current entity
+Add navigation properties in current type as ICollection
+============================================
+
+
+Individual operations
+============================================
+[Required] attribute 
+if not required then put Nullable<> for the non-string properties
+
+[MaxLength(x)] on all string properties(Except open size strings)
+
+[DisplayName("")] attribute on complex names 
+(Except PK and Parent Navigation property)
+
+Add comments on properties on class diagram 
+Gets or sets 
+
+Show parent navigation property as Association in current type
+Show collection association types in the current type
+Show collection association type in the parent types for current type

@@ -202,7 +202,7 @@ using System.Xml.Linq;
         public static bool HasAttribute(this XNode node, string attributeName)
         {
             return (from a in node.GetAttributes()
-                    where a.Name.LocalName.down() == attributeName.down()
+                    where a.Name.LocalName.ToLower() == attributeName.ToLower()
                     select a).Count() > 0;
         }
 

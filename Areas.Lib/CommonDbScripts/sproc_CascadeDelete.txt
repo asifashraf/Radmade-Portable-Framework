@@ -1,0 +1,112 @@
+﻿/****** Object:  StoredProcedure [dbo].[CascadeDelete]    Script Date: 10/01/2012 01:58:32 ******/
+SET ANSI_NULLS ON
+GO
+SET QUOTED_IDENTIFIER ON
+GO
+ALTER PROCEDURE [dbo].[CascadeDelete]
+@table varchar(100), -- Table name
+@commaSepValues varchar(max) -- Must be comma separated list of primary keys 
+AS
+
+declare @column varchar(100)
+set @column = (SELECT top 1 cu.COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE cu WHERE EXISTS ( SELECT tc.* FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc WHERE tc.TABLE_NAME = @table AND tc.CONSTRAINT_TYPE = 'PRIMARY KEY' AND tc.CONSTRAINT_NAME = cu.CONSTRAINT_NAME ))
+
+Print 'Need to delete from ' + @table + ' where ' + @column 
+
++ ' IN (' + convert(varchar, @commaSepValues) + ')'
+
+DECLARE @refrencingTable varchar(100)
+DECLARE @refrencingColumn varchar(100)
+DECLARE @refrencingTablesPrimaryKeyColumn varchar(100)
+
+DECLARE @sql varchar(4000)
+DECLARE @keyval bigint
+
+BEGIN TRY
+SET @sql = 'delete from ' + @table + ' where ' + @column 
+
++ ' IN (' + convert(varchar, @commaSepValues) + ')'
+EXEC (@sql)
+PRINT 'Bulk delete worked' 
+
+-- Deleting was successful becuase the table does not seem to refer anything
+END TRY
+BEGIN CATCH
+-- first, find all the objects which refer to this object
+DECLARE ref CURSOR LOCAL FOR -- ref is a cursor to find references
+SELECT DISTINCT
+OBJECT_NAME(f.parent_object_id) AS table_name
+, COL_NAME(fc.parent_object_id, fc.parent_column_id) AS constraint_column_name
+, sc.name as table_key
+FROM sys.foreign_keys AS f
+INNER JOIN sys.foreign_key_columns AS fc
+ON f.object_id = fc.constraint_object_id
+JOIN sys.columns as sc
+ON f.parent_object_id = sc.object_id
+JOIN sys.indexes as i
+on f.parent_object_id = i.object_id
+AND i.is_primary_key = 1
+JOIN sys.index_columns as ic
+on i.index_id = ic.index_id
+AND i.object_id = ic.object_id
+AND i.is_primary_key = 1
+AND sc.column_id = ic.column_id
+WHERE f.referenced_object_id = OBJECT_ID(@table);
+
+-- loop over the referring objects
+OPEN ref
+FETCH NEXT FROM ref INTO @refrencingTable, @refrencingColumn, 
+
+@refrencingTablesPrimaryKeyColumn
+WHILE @@FETCH_STATUS = 0
+BEGIN
+EXEC cascadeDelete @refrencingTable, @refrencingColumn, @commaSepValues 
+
+-- Self call to delete references
+print @table + ' is referenced by ' + @refrencingTable + '.' + @refrencingColumn
+
+-- get all the id values for all the referring records and put them into a temp table
+SET @sql = 'SELECT ' + @refrencingTablesPrimaryKeyColumn 
+
++ ' as keyval FROM ' + @refrencingTable + ' WHERE ' + @refrencingColumn 
+
++ ' IN (' + CONVERT(varchar, @commaSepValues) + ')'
+
+CREATE TABLE #temp (
+keyval int
+)
+
+INSERT INTO #temp
+EXEC (@sql)
+
+-- loop over the table and for each row, use cascase delete to delete it.
+DECLARE del CURSOR LOCAL FOR
+SELECT keyval FROM #temp
+
+OPEN del
+FETCH NEXT FROM del INTO @keyval
+WHILE @@FETCH_STATUS = 0
+BEGIN
+EXEC cascadeDelete @refrencingTable, @refrencingTablesPrimaryKeyColumn, @keyval
+
+FETCH NEXT FROM del INTO @keyval
+END
+CLOSE del
+DEALLOCATE del
+
+DROP TABLE #temp
+
+FETCH NEXT FROM ref INTO @refrencingTable, @refrencingColumn, 
+
+@refrencingTablesPrimaryKeyColumn
+END
+CLOSE ref
+DEALLOCATE ref
+
+SET @sql = 'DELETE FROM ' + @table + ' WHERE ' + @column 
+
++ ' IN (' + CONVERT(varchar, @commaSepValues) + ')'
+PRINT @sql
+EXEC (@sql)
+END CATCH
+
