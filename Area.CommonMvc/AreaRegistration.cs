@@ -14,7 +14,7 @@ namespace Area.CommonMvc
                 new { Controller = "EmbeddedResource", action = "Index" },
                 new[] { "MvcContrib.PortableAreas" });
 
-            base.RegisterArea(context, bus);
+            //base.RegisterArea(context, bus);
 
             context.MapRoute(AREA, AREA + "/{controller}/{action}/{id}",
                 new { controller = "Ping", action = "Index", id = UrlParameter.Optional });
