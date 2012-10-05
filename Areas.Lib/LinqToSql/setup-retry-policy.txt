@@ -1,0 +1,15 @@
+﻿1
+Define section
+<section name="RetryPolicyConfiguration" 
+type="Microsoft.AppFabricCAT.Samples.Azure.TransientFaultHandling.Configuration.RetryPolicyConfigurationSettings, Microsoft.AppFabricCAT.Samples.Azure.TransientFaultHandling" />
+(Microsoft.AppFabricCAT.Samples.Azure.TransientFaultHandling.dll)
+
+2
+Add section
+  <RetryPolicyConfiguration defaultPolicy="FixedIntervalDefault" 
+  defaultSqlConnectionPolicy="FixedIntervalDefault" defaultSqlCommandPolicy="FixedIntervalDefault" 
+  defaultStoragePolicy="IncrementalIntervalDefault" defaultCommunicationPolicy="IncrementalIntervalDefault">
+    <add name="FixedIntervalDefault" maxRetryCount="10" retryInterval="100" />
+    <add name="IncrementalIntervalDefault" maxRetryCount="10" retryInterval="100" retryIncrement="50" />
+    <add name="ExponentialIntervalDefault" maxRetryCount="10" minBackoff="100" maxBackoff="1000" deltaBackoff="100" />
+  </RetryPolicyConfiguration>
