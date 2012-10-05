@@ -31,9 +31,15 @@
     <WarningLevel>4</WarningLevel>
   </PropertyGroup>
   <ItemGroup>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\solution\packages\EntityFramework.5.0.0-beta2\lib\net40\EntityFramework.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
+    <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -45,6 +51,10 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="AppEnvironment\AppDomainHelper.cs" />
+    <Compile Include="CodeFirst\Attendee.cs" />
+    <Compile Include="CodeFirst\AttendeeConfiguration.cs" />
+    <Compile Include="CodeFirst\CodeContext.cs" />
+    <Compile Include="CodeFirst\Init.cs" />
     <Compile Include="Config\SettingsHelper.cs" />
     <Compile Include="Encryption\Crypto.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
@@ -114,6 +124,13 @@
       <Project>{891BC139-7F80-41BE-8AF8-F0D400A6068B}</Project>
       <Name>Areas.DotNetExtensions</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="App.config" />
+    <None Include="packages.config" />
+  </ItemGroup>
+  <ItemGroup>
+    <Folder Include="ConsoleApplicationHelpers\" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
