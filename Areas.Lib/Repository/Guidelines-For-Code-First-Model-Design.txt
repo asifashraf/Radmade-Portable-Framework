@@ -1,0 +1,19 @@
+Create properties by setting Types
+
+Primary key relation properties 
+Primary key navigation properties -> ICollection of child Type(Just collection, no attrib)
+
+foreign key relation properties
+FK Navigation properties
+Parent Type navigation property(add foreignkey attribute with FK property name)
+
+[Required] (for all) 
+(put Nullable<> for the nonstring allow null) properties
+
+(for string types set)
+[MaxLenth()]
+
+(for complex column names)
+DisplayName
+
+Add comments on properties

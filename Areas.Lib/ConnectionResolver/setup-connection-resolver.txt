@@ -1,0 +1,17 @@
+﻿1
+Define section
+<section name="LocalConnectionResolver" type="Areas.Lib.ConnectionResolver.ResolverSection, Areas.Lib" />
+
+2
+Put configuration
+<LocalConnectionResolver devMachines="toshiba">
+    <dbServers>
+        <!--Do not remove default connection as this is default fallback-->
+        <add name="default" connectionString="Data Source=;" />         
+                    
+        <add name="toshiba" connectionString="Data Source=;" />
+        
+        <add name="22d.cloudapp.net" connectionString="Data Source=;" />
+        
+      </dbServers>
+</LocalConnectionResolver>

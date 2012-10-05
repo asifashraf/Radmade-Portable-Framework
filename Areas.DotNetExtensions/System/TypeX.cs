@@ -85,7 +85,22 @@ using System.Reflection;
         public static object Construct(this Type type)
         {
             ConstructorInfo ci = type.GetConstructor(new Type[] { });
+
             return ci.Invoke(new object[] { });
+        }
+
+        public static object Construct(this Type type, Type parameterType, object parameterValue)
+        {
+            ConstructorInfo ci = type.GetConstructor(new Type[]{ parameterType });
+
+            return ci.Invoke(new object[]{ parameterValue });
+        }
+
+        public static object Construct(this Type type, Type[] parameterTypes, object[] parameterValues)
+        {
+            ConstructorInfo ci = type.GetConstructor(parameterTypes);
+            
+            return ci.Invoke(parameterValues);
         }
 
         #endregion Methods 

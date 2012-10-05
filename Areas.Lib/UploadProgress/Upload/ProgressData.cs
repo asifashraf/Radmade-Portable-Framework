@@ -5,6 +5,9 @@ namespace Areas.Lib.UploadProgress.Upload
     using System.Collections.Generic;
     using System.IO;
     using System.Reflection;
+    using System.Text;
+
+    using Areas.Lib.UploadProgress.Upload.AsyncUploadModels;
 
     public class ProgressData
     {
@@ -55,7 +58,41 @@ namespace Areas.Lib.UploadProgress.Upload
             writer.Write("};");
         }
 
+        public string SerializeToString(UploadTimer timer)
+        {
+            var writer = new StringBuilder();
+            writer.Append("{");
+            if (this._items.Keys.Count > 0)
+            {
+                writer.Append("InProgress:true");
+            }
+            else
+            {
+                writer.Append("InProgress:false");
+            }
+            bool flag2 = this._items.Keys.Count > 0;
+            writer.Append( String.Format(",ProgressCounters:{0}", flag2.ToString().ToLower()) );
+            lock (this.progressLock)
+            {
+                foreach (string str in this._items.Keys)
+                {
+                    writer.Append(",");
+                    writer.Append(str);
+                    writer.Append(":'");
+                    this.WriteValue(writer, str);
+                    writer.Append("'");
+                }
+                this.SerializeCustomData(writer);
+            }
+            writer.Append("}");
+            return writer.ToString();
+        }
+
         protected virtual void SerializeCustomData(TextWriter writer)
+        {
+        }
+
+        protected virtual void SerializeCustomData(StringBuilder writer)
         {
         }
 
@@ -76,6 +113,22 @@ namespace Areas.Lib.UploadProgress.Upload
             }
         }
 
+        private void WriteValue(StringBuilder writer, string key)
+        {
+            object obj2 = this._items[key];
+            if (obj2 is bool)
+            {
+                writer.Append(obj2.ToString().ToLower());
+            }
+            else if (obj2 is int)
+            {
+                writer.Append(obj2);
+            }
+            else
+            {
+                writer.Append(this.FormatString(obj2.ToString()));
+            }
+        }
 
         public virtual object CurrentOperationText
         {

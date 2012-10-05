@@ -12,6 +12,21 @@
     <AssemblyName>Areas.Lib</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
+    <PublishUrl>publish\</PublishUrl>
+    <Install>true</Install>
+    <InstallFrom>Disk</InstallFrom>
+    <UpdateEnabled>false</UpdateEnabled>
+    <UpdateMode>Foreground</UpdateMode>
+    <UpdateInterval>7</UpdateInterval>
+    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
+    <UpdatePeriodically>false</UpdatePeriodically>
+    <UpdateRequired>false</UpdateRequired>
+    <MapFileExtensions>true</MapFileExtensions>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
+    <IsWebBootstrapper>false</IsWebBootstrapper>
+    <UseApplicationTrust>false</UseApplicationTrust>
+    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -21,6 +36,7 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -29,6 +45,7 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
+    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
     <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
@@ -39,7 +56,9 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Data.Entity" />
+    <Reference Include="System.Data.Linq" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -56,8 +75,19 @@
     <Compile Include="CodeFirst\CodeContext.cs" />
     <Compile Include="CodeFirst\Init.cs" />
     <Compile Include="Config\SettingsHelper.cs" />
+    <Compile Include="DataHelpers\IDataRepository.cs" />
     <Compile Include="Encryption\Crypto.cs" />
+    <Compile Include="ConnectionResolver\DbServer.cs" />
+    <Compile Include="ConnectionResolver\DbServerCollection.cs" />
+    <Compile Include="ConnectionResolver\ResolverSection.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="LinqToSql\ServiceHolder.cs" />
+    <Compile Include="LinqToSql\AbstractService.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="UploadProgress\AsyncPostedFile.cs" />
     <Compile Include="UploadProgress\AsyncUploadConfiguration.cs" />
     <Compile Include="UploadProgress\AsyncUploadHandler.cs" />
@@ -87,7 +117,7 @@
     <Compile Include="UploadProgress\RadUploadContext.cs" />
     <Compile Include="UploadProgress\UploadModule.cs" />
     <Compile Include="UploadProgress\RadUploadProgressData.cs" />
-    <Compile Include="UploadProgress\UploadProgress.cs" />
+    <Compile Include="UploadProgress\UploadProgressHandler.cs" />
     <Compile Include="UploadProgress\RequestStateStore.cs" />
     <Compile Include="UploadProgress\TelerikToolboxCategoryAttribute.cs" />
     <Compile Include="UploadProgress\TFunc.cs" />
@@ -95,6 +125,15 @@
     <Compile Include="UploadProgress\UploadedFileCollection.cs" />
     <Compile Include="UploadProgress\UploadedFileInfo.cs" />
     <Compile Include="UploadProgress\Upload\AsyncProgressWorkerRequest.cs" />
+    <Compile Include="UploadProgress\Upload\AsyncUploadModels\UploadTimer.cs">
+      <SubType>Component</SubType>
+    </Compile>
+    <Compile Include="UploadProgress\Upload\AsyncUploadModels\UploadTracking.designer.cs">
+      <DependentUpon>UploadTracking.dbml</DependentUpon>
+      <DesignTime>True</DesignTime>
+      <AutoGen>True</AutoGen>
+    </Compile>
+    <Compile Include="UploadProgress\Upload\AsyncUploadModels\UploadTrackingService.cs" />
     <Compile Include="UploadProgress\Upload\ByteComparer.cs" />
     <Compile Include="UploadProgress\Upload\FieldHeaderInfo.cs" />
     <Compile Include="UploadProgress\Upload\FileHeaderInfo.cs" />
@@ -102,6 +141,7 @@
     <Compile Include="UploadProgress\Upload\ProgressWorkerRequest.cs" />
     <Compile Include="UploadProgress\Upload\RequestField.cs" />
     <Compile Include="UploadProgress\Upload\RequestParser.cs" />
+    <Compile Include="UploadProgress\Upload\UploadCheckpointResult.cs" />
     <Compile Include="WebAuth\Auth.cs" />
     <Compile Include="WebAuth\AuthorizationAttribute.cs" />
     <Compile Include="WebAuth\InvalidIPException.cs" />
@@ -131,6 +171,54 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="ConsoleApplicationHelpers\" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="app.config" />
+    <None Include="Properties\Settings.settings">
+      <Generator>SettingsSingleFileGenerator</Generator>
+      <LastGenOutput>Settings.Designer.cs</LastGenOutput>
+    </None>
+    <None Include="UploadProgress\Upload\AsyncUploadModels\UploadTracking.dbml">
+      <Generator>MSLinqToSQLGenerator</Generator>
+      <LastGenOutput>UploadTracking.designer.cs</LastGenOutput>
+      <SubType>Designer</SubType>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Content Include="ConnectionResolver\setup-connection-resolver.txt" />
+    <Content Include="LinqToSql\setup-retry-policy.txt" />
+    <Content Include="Repository\Guidelines-For-Code-First-Model-Design.txt" />
+    <Content Include="UploadProgress\_setup-upload-progress.txt" />
+  </ItemGroup>
+  <ItemGroup>
+    <None Include="UploadProgress\Upload\AsyncUploadModels\UploadTracking.dbml.layout">
+      <DependentUpon>UploadTracking.dbml</DependentUpon>
+    </None>
+  </ItemGroup>
+  <ItemGroup>
+    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
+  </ItemGroup>
+  <ItemGroup>
+    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
+      <Visible>False</Visible>
+      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
+      <Visible>False</Visible>
+      <ProductName>.NET Framework 3.5 SP1</ProductName>
+      <Install>false</Install>
+    </BootstrapperPackage>
+    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
+      <Visible>False</Visible>
+      <ProductName>Windows Installer 3.1</ProductName>
+      <Install>true</Install>
+    </BootstrapperPackage>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 
