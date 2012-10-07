@@ -38,6 +38,7 @@
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Core" />
+    <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
     <Reference Include="System.Runtime.Serialization" />
@@ -58,6 +59,7 @@
     <Compile Include="AppEnvironment\AppDomainHelper.cs" />
     <Compile Include="Config\SettingsHelper.cs" />
     <Compile Include="DataBootstrap\Bootstrapper.cs" />
+    <Compile Include="DataHelpers\IDataRepository.cs" />
     <Compile Include="Encryption\Crypto.cs" />
     <Compile Include="InformationSchema\ConstraintInfo.cs" />
     <Compile Include="InformationSchema\ExtensionMethods.cs" />
