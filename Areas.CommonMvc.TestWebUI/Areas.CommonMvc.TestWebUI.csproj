@@ -101,9 +101,6 @@
     </Compile>
     <Compile Include="Hubs\ChatHub.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="UploadStatus.ashx.cs">
-      <DependentUpon>UploadStatus.ashx</DependentUpon>
-    </Compile>
     <Compile Include="uploads\Empty.cs" />
   </ItemGroup>
   <ItemGroup>
@@ -199,7 +196,6 @@
   </ItemGroup>
   <ItemGroup>
     <None Include="Content\Lib\uploadify-v3.1\.htaccess" />
-    <Content Include="UploadStatus.ashx" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

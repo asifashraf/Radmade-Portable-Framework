@@ -1,21 +1,22 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-using System.Web.Script.Serialization;
+﻿
 
 namespace Areas.Lib.DataBootstrap
 {
-    public class SampleDbHelper : IDisposable
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.Linq;
+    using System.Text;
+    using System.Web.Script.Serialization;
+    public class Bootstrapper : IDisposable
     {
         public DataHelper source { get; set; }
 
         public DataHelper target { get; set; }
 
-        public SampleDbHelper(string sourceConnectionString, string targetConnectionString)
+        public Bootstrapper(string sourceConnectionString, string targetConnectionString)
         {
             this.source = new DataHelper(sourceConnectionString);
 
@@ -34,38 +35,42 @@ namespace Areas.Lib.DataBootstrap
 
         public BootstrapState BootstrapDB(string topToBottomCommaSepTables)
         {
-            var order = topToBottomCommaSepTables.Split(new char[]{ ',' }).ToList<string>();
+            var tableNames = topToBottomCommaSepTables.Split(new char[]{ ',' }).ToList<string>();
             
-            var countTablesToBootstrap = order.Count;
+            var countTablesNames = tableNames.Count;
             
             //delete all data
-            var deleteStatements = new StringBuilder();
-            for (var i = countTablesToBootstrap - 1; i >= 0; i--)
-            {
-                var current = order[i];                
+            var deleteStringBuilder = new StringBuilder();
 
-                deleteStatements.Append("Delete from [[table]]; ".Replace("[[table]]", current));
+            for (var i = countTablesNames - 1; i >= 0; i--)
+            {
+                var currentTableName = tableNames[i];                
+
+                deleteStringBuilder.Append("Delete from [[table]]; ".Replace("[[table]]", currentTableName));
             }
 
-            target.ExecuteQuery(deleteStatements.ToString());
+            target.ExecuteQuery(deleteStringBuilder.ToString());
 
+            //Select all data from sample db
             var sampleData = source.GetDataTable("select * from SampleData");
 
             //Insert
-            var dbSchema = new InformationSchema.InfoSchema(target.ConnectionString, true);
+            var targetDbSchema = new InformationSchema.InfoSchema(target.ConnectionString, true);
 
-            var jss = new JavaScriptSerializer();
+            var jserializer = new JavaScriptSerializer();
 
-            for (var i = 0; i < countTablesToBootstrap; i++)
+            for (var i = 0; i < countTablesNames; i++)
             {
-                var current = order[i];
+                var currentTableName = tableNames[i];
 
-                var table = dbSchema.Tables.Where(t => t.Name.MatchByString(current)).One();
+                var inlineValues = currentTableName.StartsWith("[");
 
-                if (table.IsNotNull())
+                var currentTableSchema = targetDbSchema.Tables.Where(t => t.Name.MatchByString(currentTableName)).One();
+
+                if (currentTableSchema.IsNotNull())
                 {
                     //take list of columns where description is contains token
-                    var columns = table.Columns
+                    var columns = currentTableSchema.Columns
                         .Where(c => !String.IsNullOrEmpty(c.Description))
                         .Where(c => c.Description.Contains("{{"))
                         .Where(c => c.Description.Contains("}}")).ToListSafely();
@@ -93,9 +98,9 @@ namespace Areas.Lib.DataBootstrap
 
                         bsString = bsString.Substring(0, bsString.IndexOf("}}") + 1);
 
-                        var bsData = jss.Deserialize<BootstrapData>(bsString);
+                        var bsData = jserializer.Deserialize<BootstrapData>(bsString);
 
-                        bsData.TableName = table.Name;
+                        bsData.TableName = currentTableSchema.Name;
 
                         bsData.ColumnName = column.Name;
 
@@ -114,6 +119,34 @@ namespace Areas.Lib.DataBootstrap
 
                     var countBsColumns = bsColumns.Count;
 
+                    //reset Identity
+                    target.ExecuteQuery("DBCC CHECKIDENT('@TableName', RESEED, 0); ".Replace("@TableName", currentTableSchema.Name));
+                    
+                    
+                    /*The concept of value spreading
+                     * Table type SourceBound===
+                    {{ Source: 'CompanyStreet' }}
+                    {{ Source: '*asif, atif, wajahat' }}
+                    company street will appear 500 times with binding
+                    other column will just spread in the same pattern among 500 rows
+
+                    * Table type Inline Values===
+                    {{ FKColumn: 'CompanyId' , FKTable: 'Companies', FkPick: 2 }}
+                    {{ Source: '*admin,dev,user,driver,customer,manager,employee,peon,teacher,student' }}
+                    values will be multiplied if FK is picked and inline values are found.
+                    So for FK 1 and then for FK2 the number of given values will be double in such situation.
+                    first of FK 1 and then for FK 2
+
+                    * Table type Inline Values===
+                    values will be fixed number if no FK is found
+                    {{ Source: '*admin,dev,user,driver,customer,manager,employee,peon,teacher,student' }}
+                    only one time and no repeat
+
+                     * Null parameter for all values
+                    {{}} send null value in parameter
+                        */
+
+
                     //iterate over all sample db rows
                     var rowCount = sampleData.Rows.Count;
                     for (var r = 0; r < rowCount; r++ )
@@ -123,7 +156,7 @@ namespace Areas.Lib.DataBootstrap
                         var row = sampleData.Rows[r];
 
                         //create insert statement using table and column names
-                        sbInsert.Append("INSERT into " + table.Name +
+                        sbInsert.Append("INSERT into " + currentTableSchema.Name +
                             "(" + sbColumnNames.ToString()
                             + ") values(" + sbColumnParamNames.ToString() + "); ");
 

@@ -1,13 +1,13 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Configuration;
-using System.Data;
-using System.Data.SqlClient;
-using System.Linq;
-using System.Text;
-
-namespace Areas.Lib
+﻿namespace Areas.Lib
 {
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Data;
+    using System.Data.SqlClient;
+    using System.Linq;
+    using System.Text;
+
     public class DataHelper : IDisposable
     {
         public DataHelper(string connectionString)
