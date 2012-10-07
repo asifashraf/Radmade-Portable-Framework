@@ -1,0 +1,92 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<ClassDiagram MajorVersion="1" MinorVersion="1">
+  <Class Name="Areas.Lib.InformationSchema.ViewInfo">
+    <Position X="2.5" Y="3.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AgAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAACAAAAgAAAA=</HashCode>
+      <FileName>InformationSchema\ViewInfo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Areas.Lib.InformationSchema.ViewColumn">
+    <Position X="6.75" Y="0.5" Width="2" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAwAAIAAAAgAQAAAAQAAABAAAAAAAAQAAAAIEA=</HashCode>
+      <FileName>InformationSchema\ViewColumn.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Areas.Lib.InformationSchema.TableInfo">
+    <Position X="2.5" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+      <Compartment Name="Methods" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>ACAAIQAAAAABAAAAAAQAAAQAAAAQAAAIAABIAAgAQAA=</HashCode>
+      <FileName>InformationSchema\TableInfo.cs</FileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Areas.Lib.InformationSchema.InfoSchema">
+    <Position X="0.5" Y="0.5" Width="1.75" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>EkUQMABQUCAAAAAJQAAASAAAAAAhIJEMACAIgCAAEAA=</HashCode>
+      <FileName>InformationSchema\InfoSchema.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Areas.Lib.InformationSchema.ConstraintInfo">
+    <Position X="9" Y="0.5" Width="2.25" />
+    <TypeIdentifier>
+      <HashCode>QICAAIAAAACAAIAAACBAAAMQAABABAQgAAAKAAAAAAA=</HashCode>
+      <FileName>InformationSchema\ConstraintInfo.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Class Name="Areas.Lib.InformationSchema.TableColumn">
+    <Position X="4.5" Y="0.5" Width="2" />
+    <Compartments>
+      <Compartment Name="Fields" Collapsed="true" />
+    </Compartments>
+    <TypeIdentifier>
+      <HashCode>AAS0IIhgAAIBAgABASAAQAQAABAIAAAAgDAQAQQAAMA=</HashCode>
+      <FileName>InformationSchema\TableColumn.cs</FileName>
+      <NewMemberFileName>InformationSchema\tableColumn.cs</NewMemberFileName>
+    </TypeIdentifier>
+    <Lollipop Position="0.2" />
+  </Class>
+  <Class Name="Areas.Lib.InformationSchema.ExtensionMethods">
+    <Position X="6.75" Y="4" Width="2" />
+    <TypeIdentifier>
+      <HashCode>gAAAAAAAAAAAAAEAAAAAAAAAAAABCAACAAAAAAAAIAA=</HashCode>
+      <FileName>InformationSchema\ExtensionMethods.cs</FileName>
+    </TypeIdentifier>
+  </Class>
+  <Interface Name="Areas.Lib.InformationSchema.IColumnInfo">
+    <Position X="9.25" Y="4.75" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAgAAIAAAAAAQAAAAQAAAAAAAAAAAAQAAAAAEA=</HashCode>
+      <FileName>InformationSchema\IColumnInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Interface Name="Areas.Lib.InformationSchema.ITableInfo">
+    <Position X="4.5" Y="5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AAAAAAAAAAAAAAAAAAAAAAQAAAAAAAAAAAAAAAAAAAA=</HashCode>
+      <FileName>InformationSchema\ITableInfo.cs</FileName>
+    </TypeIdentifier>
+  </Interface>
+  <Enum Name="Areas.Lib.InformationSchema.TypeInfo">
+    <Position X="11.5" Y="0.5" Width="1.5" />
+    <TypeIdentifier>
+      <HashCode>AEAAAAAAABGoAAAAIAgAAARAMAAAAiBIABIAABAgECA=</HashCode>
+      <FileName>InformationSchema\TypeInfo.cs</FileName>
+    </TypeIdentifier>
+  </Enum>
+  <Font Name="Segoe UI" Size="9" />
+</ClassDiagram>

@@ -12,21 +12,6 @@
     <AssemblyName>Areas.Lib</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
-    <PublishUrl>publish\</PublishUrl>
-    <Install>true</Install>
-    <InstallFrom>Disk</InstallFrom>
-    <UpdateEnabled>false</UpdateEnabled>
-    <UpdateMode>Foreground</UpdateMode>
-    <UpdateInterval>7</UpdateInterval>
-    <UpdateIntervalUnits>Days</UpdateIntervalUnits>
-    <UpdatePeriodically>false</UpdatePeriodically>
-    <UpdateRequired>false</UpdateRequired>
-    <MapFileExtensions>true</MapFileExtensions>
-    <ApplicationRevision>0</ApplicationRevision>
-    <ApplicationVersion>1.0.0.%2a</ApplicationVersion>
-    <IsWebBootstrapper>false</IsWebBootstrapper>
-    <UseApplicationTrust>false</UseApplicationTrust>
-    <BootstrapperEnabled>true</BootstrapperEnabled>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Debug|AnyCPU' ">
     <DebugSymbols>true</DebugSymbols>
@@ -36,7 +21,6 @@
     <DefineConstants>DEBUG;TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <PropertyGroup Condition=" '$(Configuration)|$(Platform)' == 'Release|AnyCPU' ">
     <DebugType>pdbonly</DebugType>
@@ -45,12 +29,10 @@
     <DefineConstants>TRACE</DefineConstants>
     <ErrorReport>prompt</ErrorReport>
     <WarningLevel>4</WarningLevel>
-    <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
-      <SpecificVersion>False</SpecificVersion>
-      <HintPath>..\solution\packages\EntityFramework.5.0.0-beta2\lib\net40\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework">
+      <HintPath>..\..\Solution\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
@@ -59,6 +41,8 @@
     <Reference Include="System.Data.Entity.Design" />
     <Reference Include="System.Data.Entity" />
     <Reference Include="System.Data.Linq" />
+    <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Security" />
     <Reference Include="System.Web" />
     <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Web.Mvc, Version=3.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
@@ -69,79 +53,31 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="DataBootstrap\BootstrapState.cs" />
+    <Compile Include="DataBootstrap\BootstrapData.cs" />
+    <Compile Include="DataHelper.cs" />
     <Compile Include="AppEnvironment\AppDomainHelper.cs" />
     <Compile Include="CodeFirst\Attendee.cs" />
     <Compile Include="CodeFirst\AttendeeConfiguration.cs" />
     <Compile Include="CodeFirst\CodeContext.cs" />
     <Compile Include="CodeFirst\Init.cs" />
     <Compile Include="Config\SettingsHelper.cs" />
+    <Compile Include="DataBootstrap\Bootstrapper.cs" />
     <Compile Include="DataHelpers\IDataRepository.cs" />
     <Compile Include="Encryption\Crypto.cs" />
-    <Compile Include="ConnectionResolver\DbServer.cs" />
-    <Compile Include="ConnectionResolver\DbServerCollection.cs" />
-    <Compile Include="ConnectionResolver\ResolverSection.cs" />
+    <Compile Include="InformationSchema\ConstraintInfo.cs" />
+    <Compile Include="InformationSchema\ExtensionMethods.cs" />
+    <Compile Include="InformationSchema\IColumnInfo.cs" />
+    <Compile Include="InformationSchema\InfoSchema.cs" />
+    <Compile Include="InformationSchema\ITableInfo.cs" />
+    <Compile Include="InformationSchema\TableColumn.cs" />
+    <Compile Include="InformationSchema\TableInfo.cs" />
+    <Compile Include="InformationSchema\TypeInfo.cs" />
+    <Compile Include="InformationSchema\ViewColumn.cs" />
+    <Compile Include="InformationSchema\ViewInfo.cs" />
+    <Compile Include="Pluralizer\Pluralizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
-    <Compile Include="LinqToSql\ServiceHolder.cs" />
-    <Compile Include="LinqToSql\AbstractService.cs" />
-    <Compile Include="Properties\Settings.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTimeSharedInput>True</DesignTimeSharedInput>
-      <DependentUpon>Settings.settings</DependentUpon>
-    </Compile>
-    <Compile Include="UploadProgress\AsyncPostedFile.cs" />
-    <Compile Include="UploadProgress\AsyncUploadConfiguration.cs" />
-    <Compile Include="UploadProgress\AsyncUploadHandler.cs" />
-    <Compile Include="UploadProgress\AsyncUpload\AsyncUploadConfigurationConverter.cs" />
-    <Compile Include="UploadProgress\AsyncUpload\AsyncUploadHandlerExeption.cs" />
-    <Compile Include="UploadProgress\AsyncUpload\ContentAppender.cs" />
-    <Compile Include="UploadProgress\AsyncUpload\CryptoService.cs" />
-    <Compile Include="UploadProgress\AsyncUpload\IRequestData.cs" />
-    <Compile Include="UploadProgress\AsyncUpload\IResponseWriter.cs" />
-    <Compile Include="UploadProgress\AsyncUpload\ITempFileAppender.cs" />
-    <Compile Include="UploadProgress\AsyncUpload\MetaData.cs" />
-    <Compile Include="UploadProgress\AsyncUpload\MimeTypes.cs" />
-    <Compile Include="UploadProgress\AsyncUpload\RadAsyncUploadContext.cs" />
-    <Compile Include="UploadProgress\AsyncUpload\RequestData.cs" />
-    <Compile Include="UploadProgress\AsyncUpload\ResponseWriter.cs" />
-    <Compile Include="UploadProgress\AsyncUpload\SerializationService.cs" />
-    <Compile Include="UploadProgress\AsyncUpload\StreamExtensions.cs" />
-    <Compile Include="UploadProgress\ChunkMetaData.cs" />
-    <Compile Include="UploadProgress\CompressionType.cs" />
-    <Compile Include="UploadProgress\HandlerRouter.cs" />
-    <Compile Include="UploadProgress\IAsyncUploadConfiguration.cs" />
-    <Compile Include="UploadProgress\IAsyncUploadResult.cs" />
-    <Compile Include="UploadProgress\LosSerializer.cs" />
-    <Compile Include="UploadProgress\PostedFile.cs" />
-    <Compile Include="UploadProgress\RadCompressionSettingsAttribute.cs" />
-    <Compile Include="UploadProgress\RadProgressContext.cs" />
-    <Compile Include="UploadProgress\RadUploadContext.cs" />
-    <Compile Include="UploadProgress\UploadModule.cs" />
-    <Compile Include="UploadProgress\RadUploadProgressData.cs" />
-    <Compile Include="UploadProgress\UploadProgressHandler.cs" />
-    <Compile Include="UploadProgress\RequestStateStore.cs" />
-    <Compile Include="UploadProgress\TelerikToolboxCategoryAttribute.cs" />
-    <Compile Include="UploadProgress\TFunc.cs" />
-    <Compile Include="UploadProgress\UploadedFile.cs" />
-    <Compile Include="UploadProgress\UploadedFileCollection.cs" />
-    <Compile Include="UploadProgress\UploadedFileInfo.cs" />
-    <Compile Include="UploadProgress\Upload\AsyncProgressWorkerRequest.cs" />
-    <Compile Include="UploadProgress\Upload\AsyncUploadModels\UploadTimer.cs">
-      <SubType>Component</SubType>
-    </Compile>
-    <Compile Include="UploadProgress\Upload\AsyncUploadModels\UploadTracking.designer.cs">
-      <DependentUpon>UploadTracking.dbml</DependentUpon>
-      <DesignTime>True</DesignTime>
-      <AutoGen>True</AutoGen>
-    </Compile>
-    <Compile Include="UploadProgress\Upload\AsyncUploadModels\UploadTrackingService.cs" />
-    <Compile Include="UploadProgress\Upload\ByteComparer.cs" />
-    <Compile Include="UploadProgress\Upload\FieldHeaderInfo.cs" />
-    <Compile Include="UploadProgress\Upload\FileHeaderInfo.cs" />
-    <Compile Include="UploadProgress\Upload\ProgressData.cs" />
-    <Compile Include="UploadProgress\Upload\ProgressWorkerRequest.cs" />
-    <Compile Include="UploadProgress\Upload\RequestField.cs" />
-    <Compile Include="UploadProgress\Upload\RequestParser.cs" />
-    <Compile Include="UploadProgress\Upload\UploadCheckpointResult.cs" />
+    <Compile Include="Repository\IDataRepository.cs" />
     <Compile Include="WebAuth\Auth.cs" />
     <Compile Include="WebAuth\AuthorizationAttribute.cs" />
     <Compile Include="WebAuth\InvalidIPException.cs" />
@@ -166,6 +102,17 @@
     </ProjectReference>
   </ItemGroup>
   <ItemGroup>
+    <Content Include="CommonDbScripts\sproc_CascadeDelete.txt" />
+    <Content Include="CommonDbScripts\sproc_GetColumnPropertiesByTableName.txt" />
+    <Content Include="CommonDbScripts\sproc_GetPrimaryKeysByTableName.txt" />
+    <Content Include="DataBootstrap\Jquery functions.txt" />
+    <Content Include="DataBootstrap\BootstrapController.txt" />
+    <Content Include="InformationSchema\queries\ColumnsQuery.txt" />
+    <Content Include="InformationSchema\queries\ForeignKeys.txt" />
+    <Content Include="InformationSchema\queries\PrimaryKeyOnATable.txt" />
+    <Content Include="InformationSchema\queries\ViewColumns.txt" />
+    <Content Include="Repository\Domain.txt" />
+    <Content Include="Repository\Domain_Partial.txt" />
     <None Include="App.config" />
     <None Include="packages.config" />
   </ItemGroup>
@@ -188,37 +135,15 @@
     <Content Include="ConnectionResolver\setup-connection-resolver.txt" />
     <Content Include="LinqToSql\setup-retry-policy.txt" />
     <Content Include="Repository\Guidelines-For-Code-First-Model-Design.txt" />
-    <Content Include="UploadProgress\_setup-upload-progress.txt" />
+    <Content Include="Repository\Repository.txt" />
   </ItemGroup>
   <ItemGroup>
-    <None Include="UploadProgress\Upload\AsyncUploadModels\UploadTracking.dbml.layout">
-      <DependentUpon>UploadTracking.dbml</DependentUpon>
-    </None>
+    <None Include="App.Config" />
+    <None Include="InformationSchema\ClassDiagram1.cd" />
+    <None Include="packages.config" />
   </ItemGroup>
   <ItemGroup>
-    <Service Include="{3259AA49-8AA1-44D3-9025-A0B520596A8C}" />
-  </ItemGroup>
-  <ItemGroup>
-    <BootstrapperPackage Include=".NETFramework,Version=v4.0">
-      <Visible>False</Visible>
-      <ProductName>Microsoft .NET Framework 4 %28x86 and x64%29</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Client.3.5">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1 Client Profile</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Net.Framework.3.5.SP1">
-      <Visible>False</Visible>
-      <ProductName>.NET Framework 3.5 SP1</ProductName>
-      <Install>false</Install>
-    </BootstrapperPackage>
-    <BootstrapperPackage Include="Microsoft.Windows.Installer.3.1">
-      <Visible>False</Visible>
-      <ProductName>Windows Installer 3.1</ProductName>
-      <Install>true</Install>
-    </BootstrapperPackage>
+    <Service Include="{508349B6-6B84-4DF5-91F0-309BEEBAD82D}" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

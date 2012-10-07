@@ -1,0 +1,11 @@
+﻿ALTER procedure GetColumnPropertiesByTableName
+@table nvarchar(100)
+AS
+SELECT *
+	FROM
+		information_schema.columns col LEFT OUTER JOIN
+		::fn_listextendedproperty(NULL, 'user','dbo','table',@table,'column', default) des
+			ON col.column_name = des.objname COLLATE latin1_general_ci_ai
+	WHERE table_name = @table
+	ORDER BY ordinal_position
+	GO

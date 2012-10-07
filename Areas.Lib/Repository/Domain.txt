@@ -1,0 +1,43 @@
+﻿    using CollisionAnalyzer.WebUI.DataAccess;
+    using System;
+    using System.Collections.Generic;
+    using System.Configuration;
+    using System.Data;
+    using System.Data.Entity;
+    using System.Data.SqlClient;
+    using System.Linq;
+    using System.Web;
+
+    public partial class Domain : Repository, IDisposable
+    {
+        public Domain() : base()
+        {
+
+        }
+
+        public int CascadeDelete(string tableName, params long[] values)
+        {
+            SqlConnection connection = new SqlConnection(base.ConnectionString);
+            SqlCommand command = connection.CreateCommand();
+            command.CommandType = CommandType.StoredProcedure;
+            command.CommandText = "CascadeDelete";
+
+            command.Parameters.Add(new SqlParameter("@table", tableName));
+
+
+            var commaSepValues = values.ToCommaSeparatedString();
+            command.Parameters.Add(new SqlParameter("@commaSepValues", commaSepValues));
+
+            connection.OpenSafely();
+            int result = command.ExecuteNonQuery();
+            connection.CloseSafely();
+            command.Dispose();
+            connection.Dispose();
+            return result;
+        }
+
+        new public void Dispose()
+        {
+            base.Dispose();
+        }
+    }
