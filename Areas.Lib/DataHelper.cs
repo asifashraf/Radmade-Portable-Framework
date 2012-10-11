@@ -27,7 +27,7 @@
             Command = Connection.CreateCommand();
             Command.CommandType = System.Data.CommandType.Text;
             Command.Parameters.Clear();
-            Command.CommandText = string.Empty;
+            Command.CommandText = string.Empty;            
             this.Connection.OpenSafely();
         }
 
@@ -117,6 +117,17 @@
             adapter.Fill(table);
 
             return table;
+        }
+
+        public List<T> GetTypedList<T>(string query, params object[] parameters)
+        {
+            this.OpenConnection();
+            this.Command.CommandText = query;
+            this.Command.SetCommandParametersByPairsArray(parameters);
+            var reader = this.Command.ExecuteReader();            
+            var result = reader.ParseToObjectList<T>(this.Connection, true);
+            this.CloseConnection();
+            return result;
         }
 
         public void Dispose()

@@ -55,7 +55,7 @@ namespace Areas.Lib.DataBootstrap
             var sampleData = source.GetDataTable("select * from SampleData");
 
             //Insert
-            var targetDbSchema = new InformationSchema.InfoSchema(target.ConnectionString, true);
+            var targetDbSchema = new InformationSchema.InfoSchema(target.ConnectionString);
 
             var jserializer = new JavaScriptSerializer();
 

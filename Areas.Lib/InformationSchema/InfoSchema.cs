@@ -16,20 +16,18 @@ namespace Areas.Lib.InformationSchema
         List<TableColumn> _tableColumns = new List<TableColumn>();
         List<ViewColumn> _viewColumns = new List<ViewColumn>();
         #endregion Fields
-        
+
+        public DataHelper db { get; set; }
         #region Constructors
         /// <summary>
         /// By default loads all data immediately unless second param is sent as false
         /// </summary>
         /// <param name="connectionString">db connectionstring</param>
         /// <param name="completeLoadImmediately">load immediately or late</param>
-        public InfoSchema(string connectionString, bool completeLoadImmediately = true)
+        public InfoSchema(string connectionString)
         {
             _connectionString = connectionString;
-            if (completeLoadImmediately)
-            {
-                this.LoadComplete();
-            }
+            LoadComplete();
         }   
         
         /// <summary>
@@ -51,7 +49,7 @@ namespace Areas.Lib.InformationSchema
         }
         #endregion Constructors
         
-        #region load methods
+        #region load methods        
         public void LoadTables()
         {
             this.Tables = GetTables(this.Connectionstring, TableFilters.ToArray<string>()); // load tables
@@ -79,17 +77,20 @@ namespace Areas.Lib.InformationSchema
                                    select cn).ToList<ConstraintInfo>();
 
                 //load description for columns
-                string query = @"Select objname,value from information_schema.columns col
-                                LEFT OUTER JOIN ::fn_listextendedproperty(NULL, 'schema','dbo','table', '[[TableName]]' ,'column', null) des ON col.column_name = des.objname COLLATE latin1_general_ci_ai
-                                where table_name = '[[TableName]]'".Replace("[[TableName]]", t.Name);
+                string query = @"select  [value] as [Description],COL_NAME(major_id,minor_id) as ColumnName  
+from sys.extended_properties xp   
+where xp.class = 1 and  xp.minor_id > 0 and 
+xp.major_id = object_id(N'[[schema]].[[table]]') 
+and xp.name in (N'MS_Description')"
+                    .Replace("[[schema]]", t.SchemaName).Replace("[[table]]", t.Name);
                 SqlConnection conn;
                 using (IDataReader reader = SqlCommandX.Instance.GetReader(
                      _connectionString, query, CommandType.Text, out conn))
                 {
                     while (reader.Read())
                     {
-                        var col = reader["objname"].Text();
-                        var desc = reader["value"].Text();
+                        var col = reader["ColumnName"].Text();
+                        var desc = reader["Description"].Text();
                         if (col.IsNotNullOrEmpty())
                         {
                             var column = (from c in t.Columns where c.Name.ToLower() == col.ToLower() select c).One();
@@ -121,9 +122,24 @@ namespace Areas.Lib.InformationSchema
             LoadTableColumns();
             LoadViewColumns();
         }
+
+        
         #endregion
 
         #region Properties
+        List<SchemaInfo> schemas;
+        public List<SchemaInfo> Schemas 
+        {
+            get 
+            {
+                if (null == schemas)
+                {
+                    schemas = db.GetTypedList<SchemaInfo>("select * from INFORMATION_SCHEMA.SCHEMATA");
+                }
+                return schemas;
+            }
+        }
+
         /// <summary>
         /// List of all constraints, tables filter is applied if present
         /// </summary>
@@ -896,7 +912,7 @@ namespace Areas.Lib.InformationSchema
         public static List<TableInfo> GetTables(string connectionString, params string[] filterTables)
         {
             List<TableInfo> tempList = new List<TableInfo>();
-            string query = "Select table_name from information_schema.Tables Where table_name <> 'sysdiagrams' AND Table_type = 'BASE TABLE'";
+            string query = "Select table_name,table_schema from information_schema.Tables Where table_name <> 'sysdiagrams' AND Table_type = 'BASE TABLE'";
             if (filterTables.Length > 0)
             {
                 query = query + " AND table_name in " + filterTables.ToWhereClauseInCommaList();
@@ -910,7 +926,8 @@ namespace Areas.Lib.InformationSchema
                 while (reader.Read())
                 {
                     string tableName = reader["table_name"].ToString().ToLower();
-                    tempList.Add(new TableInfo(connectionString, reader["table_name"].ToString()));
+                    string schemaName = reader["table_schema"].Text();
+                    tempList.Add(new TableInfo(connectionString, schemaName, reader["table_name"].ToString()));
                 }
             }
             conn.Destroy();

@@ -7,6 +7,8 @@ namespace Areas.Lib.InformationSchema
 {
     public class TableInfo : ITableInfo
     {
+        public string SchemaName { get; set; }
+
         private string _name;
         public string Name
         {
@@ -27,9 +29,7 @@ namespace Areas.Lib.InformationSchema
 //            {
 //                if (_description.IsNullOrEmpty())
 //                {
-//                    _description = GetScalarByQuery(@"select [value] from fn_listextendedproperty 
-//(null,'schema','dbo','TABLE',null,null,null) where objname <> 'sysdiagrams' 
-//AND objname = '[[TableName]]'".Replace("[[TableName]]", this.Name)).Text();
+//                    _description = GetScalarByQuery(@"select [value] from fn_listextendedproperty (null,'schema','dbo','TABLE',null,null,null) where objname <> 'sysdiagrams' AND objname = '[[TableName]]'".Replace("[[TableName]]", this.Name)).Text();
 //                }
 
 //                return _description;
@@ -51,6 +51,13 @@ namespace Areas.Lib.InformationSchema
             {
                 _connectionString = value;
             }
+        }
+
+        public TableInfo(string connectionString, string schemaName, string tableName)
+        {
+            this.SchemaName = schemaName;
+            _connectionString = connectionString;
+            this.Name = tableName;
         }
 
         public TableInfo(string connectionString, string tableName)

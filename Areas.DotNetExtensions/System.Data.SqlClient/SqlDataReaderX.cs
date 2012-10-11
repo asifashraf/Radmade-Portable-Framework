@@ -11,15 +11,15 @@ using System.Web;
 		// Public Methods (1) 
 		public static List<T> ParseToObjectList<T>(this SqlDataReader reader,
 		   SqlConnection connectionToUseAndCloseAfterReading, bool closeReader, 
-			params string[] onlyThese)
+			params string[] onlyThesePropertiesMatch)
 		{
 			Type t = typeof(T);
 			ConstructorInfo ci = t.GetConstructor(new Type[] { });
 			List<T> list = new List<T>();
 			PropertyInfo[] arrp = t.GetProperties();
-			if (onlyThese.CountedZero())
+			if (onlyThesePropertiesMatch.CountedZero())
 			{
-				onlyThese = (from p in arrp
+				onlyThesePropertiesMatch = (from p in arrp
 							select p.Name).ToArray<string>();
 			}
 			Dictionary<string, PropertyInfo> props = new Dictionary<string, PropertyInfo>();
@@ -30,7 +30,7 @@ using System.Web;
 			while (reader.Read())
 			{
 				object instance = ci.Invoke(new object[] { });
-				foreach (string propertName in onlyThese)
+				foreach (string propertName in onlyThesePropertiesMatch)
 				{
 					try
 					{

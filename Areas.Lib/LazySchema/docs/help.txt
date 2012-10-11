@@ -1,0 +1,13 @@
+﻿public class SchemaHelper
+=========================
+Does not fetch anything in constructor. You can call different functions and every function will fetch its data lazily when its called. This is different from InfoSchema because InfoSchema loads all database schema in the constructor.
+
+SchemaHelper class methods
+==========================
+public List<PrimaryKey> GetPrimaryKeysByTableName(string TableName)
+-------------------------------------------------------------------
+Loads collection of primary keys on the given table name.
+
+Parameters
+..........
+TableName - Name of the table

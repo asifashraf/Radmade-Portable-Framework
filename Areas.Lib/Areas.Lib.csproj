@@ -70,11 +70,14 @@
     <Compile Include="InformationSchema\IColumnInfo.cs" />
     <Compile Include="InformationSchema\InfoSchema.cs" />
     <Compile Include="InformationSchema\ITableInfo.cs" />
+    <Compile Include="InformationSchema\SchemaInfo.cs" />
     <Compile Include="InformationSchema\TableColumn.cs" />
     <Compile Include="InformationSchema\TableInfo.cs" />
     <Compile Include="InformationSchema\TypeInfo.cs" />
     <Compile Include="InformationSchema\ViewColumn.cs" />
     <Compile Include="InformationSchema\ViewInfo.cs" />
+    <Compile Include="LazySchema\PrimaryKey.cs" />
+    <Compile Include="LazySchema\SchemaHelper.cs" />
     <Compile Include="Pluralizer\Pluralizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Repository\IDataRepository.cs" />
@@ -111,6 +114,7 @@
     <Content Include="InformationSchema\queries\ForeignKeys.txt" />
     <Content Include="InformationSchema\queries\PrimaryKeyOnATable.txt" />
     <Content Include="InformationSchema\queries\ViewColumns.txt" />
+    <Content Include="LazySchema\docs\help.txt" />
     <Content Include="Repository\Domain.txt" />
     <Content Include="Repository\Domain_Partial.txt" />
     <None Include="App.config" />
