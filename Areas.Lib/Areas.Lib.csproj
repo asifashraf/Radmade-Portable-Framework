@@ -57,10 +57,6 @@
     <Compile Include="DataBootstrap\BootstrapData.cs" />
     <Compile Include="DataHelper.cs" />
     <Compile Include="AppEnvironment\AppDomainHelper.cs" />
-    <Compile Include="CodeFirst\Attendee.cs" />
-    <Compile Include="CodeFirst\AttendeeConfiguration.cs" />
-    <Compile Include="CodeFirst\CodeContext.cs" />
-    <Compile Include="CodeFirst\Init.cs" />
     <Compile Include="Config\SettingsHelper.cs" />
     <Compile Include="DataBootstrap\Bootstrapper.cs" />
     <Compile Include="DataHelpers\IDataRepository.cs" />
