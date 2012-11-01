@@ -26,6 +26,7 @@ namespace Areas.Lib.InformationSchema
         /// <param name="completeLoadImmediately">load immediately or late</param>
         public InfoSchema(string connectionString)
         {
+            this.db = new DataHelper(connectionString);
             _connectionString = connectionString;
             LoadComplete();
         }   
@@ -120,7 +121,40 @@ and xp.name in (N'MS_Description')"
             LoadViews();
             LoadConstraints();
             LoadTableColumns();
+            LoadFks();
             LoadViewColumns();
+        }
+
+        private void LoadFks()
+        {
+            var query = @"--Query to find foreign key to other tables
+                        select Fk.name as Name, Fk.object_id as ObjectId, Fk.is_disabled as IsDisabled, 
+                        Fk.is_not_for_replication as IsNotFotReplication, 
+                        Fk.delete_referential_action as DeleteReferentialAction, 
+                        Fk.update_referential_action as UpdateReferentialAction, 
+                        object_name(Fk.parent_object_id) as FkTableName, 
+                        schema_name(Fk.schema_id) as FkTableSchema, 
+                        TbR.name as PkTableName, 
+                        schema_name(TbR.schema_id) as PkTableSchema, 
+                        col_name(Fk.parent_object_id, 
+                        Fk_Cl.parent_column_id) as FkColumnName, 
+                        col_name(Fk.referenced_object_id, 
+                        Fk_Cl.referenced_column_id) as PkColumnName, 
+                        Fk_Cl.constraint_column_id as ConstraintColumnId, 
+                        Fk.is_not_trusted as IsNotTrusted
+                        from sys.foreign_keys Fk 
+                        left outer join sys.tables TbR on TbR.object_id = Fk.referenced_object_id 
+                        inner join sys.foreign_key_columns Fk_Cl on Fk_Cl.constraint_object_id = Fk.object_id ";
+
+            var listFks = db.GetTypedList<ForeignKey>(query);
+            foreach (var fk in listFks)
+            {
+                var table = this.Tables.Where(t => t.FullName.MatchByString(fk.FkTableFullName)).One();
+                if (table.IsNotNull())
+                {
+                    table.FKs.Add(fk);
+                }
+            }
         }
 
         

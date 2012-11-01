@@ -1,0 +1,6 @@
+﻿Command line shell connectivity
+===============================
+
+Help article
+------------
+http://www.mongodb.org/display/DOCS/Overview+-+The+MongoDB+Interactive+Shell

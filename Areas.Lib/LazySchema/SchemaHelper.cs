@@ -23,7 +23,7 @@ namespace Areas.Lib.LazySchema
         /// </summary>
         /// <param name="TableName">Name of the table</param>
         /// <returns></returns>
-        public List<PrimaryKey> GetPrimaryKeyNamesByTableName(string TableName)
+        public List<LazyPrimaryKey> GetPrimaryKeyNamesByTableName(string TableName)
         {
             var query = @"select 
  ind.name, 
@@ -47,8 +47,37 @@ namespace Areas.Lib.LazySchema
 and is_primary_key = 1  and ind.index_id >= 0 and ind.type <> 3 and ind.type <> 4 
 and ind.is_hypothetical = 0   order by ind.index_id, ind_col.key_ordinal"
                 .Replace("[[TableName]]", TableName);
-            return db.GetTypedList<PrimaryKey>(query);
+            return db.GetTypedList<LazyPrimaryKey>(query);
             
+        }
+
+        public List<LazyTable> GetTables()
+        {
+            return db.GetTypedList<LazyTable>("Select table_name as [Name],table_schema as [Schema] from information_schema.Tables Where table_name <> 'sysdiagrams' AND Table_type = 'BASE TABLE'");
+        }
+
+        public List<LazyFk> GetForeignKeys()
+        {
+            var query = @"--Query to find foreign key to other tables
+                        select Fk.name as Name, Fk.object_id as ObjectId, Fk.is_disabled as IsDisabled, 
+                        Fk.is_not_for_replication as IsNotFotReplication, 
+                        Fk.delete_referential_action as DeleteReferentialAction, 
+                        Fk.update_referential_action as UpdateReferentialAction, 
+                        object_name(Fk.parent_object_id) as FkTableName, 
+                        schema_name(Fk.schema_id) as FkTableSchema, 
+                        TbR.name as PkTableName, 
+                        schema_name(TbR.schema_id) as PkTableSchema, 
+                        col_name(Fk.parent_object_id, 
+                        Fk_Cl.parent_column_id) as FkColumnName, 
+                        col_name(Fk.referenced_object_id, 
+                        Fk_Cl.referenced_column_id) as PkColumnName, 
+                        Fk_Cl.constraint_column_id as ConstraintColumnId, 
+                        Fk.is_not_trusted as IsNotTrusted
+                        from sys.foreign_keys Fk 
+                        left outer join sys.tables TbR on TbR.object_id = Fk.referenced_object_id 
+                        inner join sys.foreign_key_columns Fk_Cl on Fk_Cl.constraint_object_id = Fk.object_id ";
+
+            return db.GetTypedList<LazyFk>(query);
         }
     }
 }

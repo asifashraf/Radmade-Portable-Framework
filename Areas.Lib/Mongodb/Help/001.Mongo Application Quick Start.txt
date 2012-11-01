@@ -1,0 +1,35 @@
+﻿Mongo Application Quick Start
+=============================
+
+Local folders 
+-------------
+Create following folders
+d:\mongo
+d:\mongo\data
+d:\mongo\log
+Set permission to write to these folers for everyone user
+
+Download Mongo
+--------------
+Website: http://www.mongodb.org
+Unzip and Take all mongo db native EXE Files from BIN put in C:\Mongo
+
+Start db
+---------------------------------------
+Open command prompt and type
+mongod --dbpath d:\mongo\data --logpath d:\mongo\log
+(To start with port add --port 1234)
+
+Test in browser
+---------------
+Type in browser
+http://localhost:1010
+
+Diagnose in browser
+-------------------
+To diagnose add "1000" to the part in your case
+http://localhost:2010
+
+Stop db
+-------
+Press Control + C

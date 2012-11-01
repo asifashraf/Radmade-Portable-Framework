@@ -1,0 +1,6 @@
+﻿GUI tool
+========
+download from : http://rockmongo.com/?action=downloads (download "RockMongo-on-Windows")
+Unzip and run "Rockstart" 
+it will open browser with this url: http://127.0.0.1:7788/rockmongo/index.php?action=login.index
+Username and password are admin : admin
