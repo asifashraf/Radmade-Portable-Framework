@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?><?xml-stylesheet type='text/xsl' href='_UpgradeReport_Files/UpgradeReport.xslt'?><UpgradeLog>
+<Properties><Property Name="Solution" Value="Areas.All">
+</Property><Property Name="Solution File" Value="D:\dropbox2\Dropbox\CollisionAnalyzer\src\Areas\solution\Areas.All.sln">
+</Property><Property Name="Date" Value="Thursday, November 01, 2012">
+</Property><Property Name="Time" Value="22:20 PM">
+</Property></Properties><Event ErrorLevel="0" Project="Areas.Lib" Source="..\Areas.Lib\Areas.Lib.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="Areas.Lib" Source="..\Areas.Lib\Areas.Lib.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="Areas.Lib.Tests" Source="..\Areas.Lib.Tests\Areas.Lib.Tests.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="Areas.Lib.Tests" Source="..\Areas.Lib.Tests\Areas.Lib.Tests.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="Areas.DotNetExtensions.Tests" Source="..\Areas.DotNetExtensions.Tests\Areas.DotNetExtensions.Tests.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="Areas.DotNetExtensions.Tests" Source="..\Areas.DotNetExtensions.Tests\Areas.DotNetExtensions.Tests.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="Area.CommonMvc" Source="..\Area.CommonMvc\Area.CommonMvc.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="Area.CommonMvc" Source="..\Area.CommonMvc\Area.CommonMvc.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="Area.CommonMvc.Tests" Source="..\Area.CommonMvc.Tests\Area.CommonMvc.Tests.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="Area.CommonMvc.Tests" Source="..\Area.CommonMvc.Tests\Area.CommonMvc.Tests.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="Areas.DotNetExtensions" Source="..\Areas.DotNetExtensions\Areas.DotNetExtensions.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="Areas.DotNetExtensions" Source="..\Areas.DotNetExtensions\Areas.DotNetExtensions.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="Areas.CommonMvc.TestWebUI" Source="..\Areas.CommonMvc.TestWebUI\Areas.CommonMvc.TestWebUI.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="Areas.CommonMvc.TestWebUI" Source="..\Areas.CommonMvc.TestWebUI\Areas.CommonMvc.TestWebUI.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="D:\dropbox2\Dropbox\CollisionAnalyzer\src\Areas\solution\Areas.CommonMvc.TestWebUI.Azure\Areas.CommonMvc.TestWebUI.Azure.ccproj" Source="Areas.CommonMvc.TestWebUI.Azure\ServiceDefinition.csdef" Description="Updated ServiceConfiguration element schemaVersion attribute to '2012-05.1.7'.">
+</Event><Event ErrorLevel="3" Project="D:\dropbox2\Dropbox\CollisionAnalyzer\src\Areas\solution\Areas.CommonMvc.TestWebUI.Azure\Areas.CommonMvc.TestWebUI.Azure.ccproj" Source="Areas.CommonMvc.TestWebUI.Azure\ServiceDefinition.csdef" Description="Converted">
+</Event><Event ErrorLevel="0" Project="D:\dropbox2\Dropbox\CollisionAnalyzer\src\Areas\solution\Areas.CommonMvc.TestWebUI.Azure\Areas.CommonMvc.TestWebUI.Azure.ccproj" Source="Areas.CommonMvc.TestWebUI.Azure\ServiceConfiguration.Local.cscfg" Description="Updated ServiceDefinition element schemaVersion attribute to '2012-05.1.7'.">
+</Event><Event ErrorLevel="3" Project="D:\dropbox2\Dropbox\CollisionAnalyzer\src\Areas\solution\Areas.CommonMvc.TestWebUI.Azure\Areas.CommonMvc.TestWebUI.Azure.ccproj" Source="Areas.CommonMvc.TestWebUI.Azure\ServiceConfiguration.Local.cscfg" Description="Converted">
+</Event><Event ErrorLevel="0" Project="D:\dropbox2\Dropbox\CollisionAnalyzer\src\Areas\solution\Areas.CommonMvc.TestWebUI.Azure\Areas.CommonMvc.TestWebUI.Azure.ccproj" Source="Areas.CommonMvc.TestWebUI.Azure\ServiceConfiguration.Cloud.cscfg" Description="Updated ServiceDefinition element schemaVersion attribute to '2012-05.1.7'.">
+</Event><Event ErrorLevel="3" Project="D:\dropbox2\Dropbox\CollisionAnalyzer\src\Areas\solution\Areas.CommonMvc.TestWebUI.Azure\Areas.CommonMvc.TestWebUI.Azure.ccproj" Source="Areas.CommonMvc.TestWebUI.Azure\ServiceConfiguration.Cloud.cscfg" Description="Converted">
+</Event><Event ErrorLevel="0" Project="D:\dropbox2\Dropbox\CollisionAnalyzer\src\Areas\solution\Areas.CommonMvc.TestWebUI.Azure\Areas.CommonMvc.TestWebUI.Azure.ccproj" Source="Areas.CommonMvc.TestWebUI.Azure\Areas.CommonMvc.TestWebUI.Azure.ccproj" Description="Upgraded ProductVersion value to 1.7.">
+</Event><Event ErrorLevel="3" Project="D:\dropbox2\Dropbox\CollisionAnalyzer\src\Areas\solution\Areas.CommonMvc.TestWebUI.Azure\Areas.CommonMvc.TestWebUI.Azure.ccproj" Source="Areas.CommonMvc.TestWebUI.Azure\Areas.CommonMvc.TestWebUI.Azure.ccproj" Description="Converted">
+</Event><Event ErrorLevel="0" Project="D:\dropbox2\Dropbox\CollisionAnalyzer\src\Areas\solution\Areas.CommonMvc.TestWebUI.Azure\Areas.CommonMvc.TestWebUI.Azure.ccproj" Source="Areas.CommonMvc.TestWebUI.Azure\Areas.CommonMvc.TestWebUI.Azure.ccproj" Description="Added UseIISExpressByDefault value 'false'.">
+</Event><Event ErrorLevel="0" Project="D:\dropbox2\Dropbox\CollisionAnalyzer\src\Areas\solution\Areas.CommonMvc.TestWebUI.Azure\Areas.CommonMvc.TestWebUI.Azure.ccproj" Source="Areas.CommonMvc.TestWebUI.Azure\Areas.CommonMvc.TestWebUI.Azure.ccproj" Description="Upgraded CloudExtensionsDir value to $(MSBuildExtensionsPath)\Microsoft\VisualStudio\v$(VisualStudioVersion)\Windows Azure Tools\1.7\.">
+</Event><Event ErrorLevel="0" Project="Areas.ConsoleApp" Source="..\Areas.ConsoleApp\Areas.ConsoleApp.csproj" Description="The project file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="Areas.ConsoleApp" Source="..\Areas.ConsoleApp\Areas.ConsoleApp.csproj" Description="No Conversion Required">
+</Event><Event ErrorLevel="0" Project="" Source="Areas.All.sln" Description="The solution file does not require conversion.">
+</Event><Event ErrorLevel="3" Project="" Source="Areas.All.sln" Description="No Conversion Required">
+</Event></UpgradeLog>

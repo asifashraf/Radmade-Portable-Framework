@@ -310,7 +310,6 @@ public static class objectEx
     {
         return o.ToString();
     }
-
         
     #endregion Methods 
   }
