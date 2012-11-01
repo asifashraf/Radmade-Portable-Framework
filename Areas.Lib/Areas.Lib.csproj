@@ -121,11 +121,11 @@
     <Content Include="Help\Common Sql Queries\info_schema_PrimaryKeyOnATable.txt" />
     <Content Include="Help\Common Sql Queries\info_schema_ViewColumns.txt" />
     <Content Include="Help\LazySchema\help.txt" />
-    <Content Include="Help\MongoDB\001.Mongo Application Quick Start.txt" />
-    <Content Include="Help\MongoDB\002.Connectionstring format.txt" />
-    <Content Include="Help\MongoDB\003.Command line shell connectivity.txt" />
-    <Content Include="Help\MongoDB\004.GUI tool.txt" />
-    <Content Include="Help\MongoDB\005.CSharp Drivers.txt" />
+    <None Include="Help\MongoDB\001.Mongo Application Quick Start.md" />
+    <None Include="Help\MongoDB\002.Connectionstring format.md" />
+    <None Include="Help\MongoDB\003.Command line shell connectivity.md" />
+    <None Include="Help\MongoDB\004.GUI tool.md" />
+    <None Include="Help\MongoDB\005.CSharp Drivers.md" />
     <Content Include="Help\Repository\Domain.txt" />
     <Content Include="Help\Repository\Domain_Partial.txt" />
     <None Include="packages.config">
