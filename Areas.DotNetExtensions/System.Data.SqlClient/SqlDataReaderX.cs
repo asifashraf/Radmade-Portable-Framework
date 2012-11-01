@@ -4,6 +4,7 @@ using System.Linq;
 using System.Data.SqlClient;
 using System.Reflection;
 using System.Web;
+using System.Data;
 	public static class SqlDataReaderX
 	{
 		#region Methods (1) 
@@ -32,15 +33,18 @@ using System.Web;
 				object instance = ci.Invoke(new object[] { });
 				foreach (string propertName in onlyThesePropertiesMatch)
 				{
-					try
-					{
-						object aValue = reader[propertName];
-						if (null != aValue && DBNull.Value != aValue)
-						{
-							props[propertName].SetValue(instance, aValue, null);
-						}
-					}
-					catch { }
+                    //try
+                    //{
+                        if(reader.HasColumn(propertName))
+                        {
+                            var obj = reader[propertName];
+                            if (obj.IsNotNull())
+                            {
+                                props[propertName].SetValue(instance, obj, null);
+                            }
+                        }
+                    //}
+                    //catch { }
 				}
 				list.Add(instance.CastTo<T>());
 			}
@@ -59,6 +63,17 @@ using System.Web;
 		{
 			return ParseToObjectList<T>(reader, connectionToUseAndCloseAfterReading, true);
 		}
+
+        public static bool HasColumn(this IDataRecord dr, string columnName)
+        {
+            for (int i = 0; i < dr.FieldCount; i++)
+            {
+                if (dr.GetName(i).Equals(columnName, StringComparison.InvariantCultureIgnoreCase))
+                    return true;
+            }
+            return false;
+        }
+
 		public static string ColumnValueHtmlEncoded(this SqlDataReader reader, string columnName)
 		{
 			return HttpContext.Current.Server.HtmlEncode(reader[columnName].Text());

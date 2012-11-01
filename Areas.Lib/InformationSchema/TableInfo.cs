@@ -22,6 +22,20 @@ namespace Areas.Lib.InformationSchema
             }
         }
 
+        public string FullName
+        {
+            get 
+            {
+                return GetFullName(this.Name, this.SchemaName);
+            }
+        }
+
+        public static string GetFullName(string tableName, string schema)
+        {
+            var schemaToUse = schema.IsNullOrEmpty() ? "dbo" : schema;
+            return string.Format("{0}.{1}", schema, tableName);
+        }
+
 //        private string _description = "";
 //        public string Description
 //        {
@@ -129,6 +143,23 @@ namespace Areas.Lib.InformationSchema
                     this.PKConstraints = cs.GetPrimaryKeyOnTable(this.ConnectionString, this.Name);
                 }
                 return ConstraintInfo.MatchColumns(this.PKConstraints, this);
+            }
+        }
+
+        private List<ForeignKey> fks;
+        public List<ForeignKey> FKs
+        {
+            get 
+            {
+                if (fks.IsNull())
+                {
+                    fks = new List<ForeignKey>();                    
+                }
+                return this.fks;
+            }
+            set
+            {
+                fks = value;
             }
         }
 

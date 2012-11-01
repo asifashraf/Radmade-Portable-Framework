@@ -34,6 +34,12 @@
     <Reference Include="EntityFramework">
       <HintPath>..\..\Solution\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="MongoDB.Bson">
+      <HintPath>..\Lib\Mongo_db_2.2.0\MongoDB.Bson.dll</HintPath>
+    </Reference>
+    <Reference Include="MongoDB.Driver">
+      <HintPath>..\Lib\Mongo_db_2.2.0\MongoDB.Driver.dll</HintPath>
+    </Reference>
     <Reference Include="System" />
     <Reference Include="System.ComponentModel.DataAnnotations" />
     <Reference Include="System.Configuration" />
@@ -67,6 +73,7 @@
     <Compile Include="Encryption\Crypto.cs" />
     <Compile Include="InformationSchema\ConstraintInfo.cs" />
     <Compile Include="InformationSchema\ExtensionMethods.cs" />
+    <Compile Include="InformationSchema\ForeignKey.cs" />
     <Compile Include="InformationSchema\IColumnInfo.cs" />
     <Compile Include="InformationSchema\InfoSchema.cs" />
     <Compile Include="InformationSchema\ITableInfo.cs" />
@@ -76,10 +83,18 @@
     <Compile Include="InformationSchema\TypeInfo.cs" />
     <Compile Include="InformationSchema\ViewColumn.cs" />
     <Compile Include="InformationSchema\ViewInfo.cs" />
+    <Compile Include="LazySchema\LazyFk.cs" />
+    <Compile Include="LazySchema\LazyTable.cs" />
     <Compile Include="LazySchema\PrimaryKey.cs" />
     <Compile Include="LazySchema\SchemaHelper.cs" />
+    <Compile Include="Mongodb\IMongoDocument.cs" />
+    <Compile Include="Mongodb\MongoCollectionStaticMethods.cs" />
+    <Compile Include="Mongodb\MongoContext.cs" />
+    <Compile Include="Mongodb\MongoDatabaseExtensions.cs" />
+    <Compile Include="Mongodb\MongoEntity.cs" />
     <Compile Include="Pluralizer\Pluralizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Repository\GenericRepository.cs" />
     <Compile Include="Repository\IDataRepository.cs" />
     <Compile Include="WebAuth\Auth.cs" />
     <Compile Include="WebAuth\AuthorizationAttribute.cs" />
@@ -115,6 +130,11 @@
     <Content Include="InformationSchema\queries\PrimaryKeyOnATable.txt" />
     <Content Include="InformationSchema\queries\ViewColumns.txt" />
     <Content Include="LazySchema\docs\help.txt" />
+    <Content Include="Mongodb\Help\001.Mongo Application Quick Start.txt" />
+    <Content Include="Mongodb\Help\002.Connectionstring format.txt" />
+    <Content Include="Mongodb\Help\003.Command line shell connectivity.txt" />
+    <Content Include="Mongodb\Help\004.GUI tool.txt" />
+    <Content Include="Mongodb\Help\005.CSharp Drivers.txt" />
     <Content Include="Repository\Domain.txt" />
     <Content Include="Repository\Domain_Partial.txt" />
     <None Include="App.config" />

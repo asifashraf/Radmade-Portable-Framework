@@ -5,7 +5,7 @@ using System.Text;
 
 namespace Areas.Lib.LazySchema
 {
-    public class PrimaryKey
+    public class LazyPrimaryKey
     {
         public string PkColumnName { get; set; }
     }
