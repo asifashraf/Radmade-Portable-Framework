@@ -138,6 +138,7 @@
     <Content Include="Help\Common Sql Queries\info_schema_PrimaryKeyOnATable.txt" />
     <Content Include="Help\Common Sql Queries\info_schema_ViewColumns.txt" />
     <Content Include="Help\LazySchema\help.txt" />
+    <None Include="Help\TortoiesHG\SSH\001-GeneratingSSHKey.md" />
     <None Include="Help\MongoDB\001.Mongo Application Quick Start.md" />
     <None Include="Help\MongoDB\002.Connectionstring format.md" />
     <None Include="Help\MongoDB\003.Command line shell connectivity.md" />
