@@ -4,13 +4,10 @@ namespace Areas.Lib.Web
 {
     public abstract class BaseController : Controller
     {
-        protected JsonResult FormatJson(ResultType messageStatus, string msg, object dataObject, string specialCode = "")
-        {
-            //format json object
-            var json = new JsonMessage(messageStatus, msg, dataObject, specialCode);
-
-            return Json(json, JsonRequestBehavior.AllowGet);
-
+        protected JsonResult FormatJson(ResultType status, string text, object json = null)
+        {            
+            return Json(new { status = status.Name(), text = text, @object=json  }, 
+                JsonRequestBehavior.AllowGet);
         }
     }
 }

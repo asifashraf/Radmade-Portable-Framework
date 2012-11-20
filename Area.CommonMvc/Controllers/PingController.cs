@@ -40,7 +40,7 @@ namespace Area.CommonMvc.Controllers
                 + "Supports JavaScript Version = " +
                     browser["JavaScriptVersion"] + "\n";
 
-            return FormatJson(ResultType.data, "Browser capabilities", s);
+            return FormatJson(ResultType.success, "Browser capabilities", s);
         }
 
         public JsonResult RequestStatus()
@@ -56,7 +56,7 @@ namespace Area.CommonMvc.Controllers
                 }
             }
 
-            return FormatJson(ResultType.data, "Request status", 
+            return FormatJson(ResultType.success, "Request status", 
                 new
                 {
                     Time = DateTime.Now.ToString(CultureInfo.InvariantCulture),

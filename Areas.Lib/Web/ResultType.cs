@@ -2,12 +2,14 @@
 {
     public enum ResultType
     {
-        good,
-        bad,
-        data,
-        validationErrors,
-        exception ,
-        specialCode,
-        redirect
+        empty,
+        success,
+        failure,
+        validationerrors,
+        exception, 
+        codeword, 
+        redirect,
+        function,
+        code
     }
 }
