@@ -2,7 +2,7 @@
 {
     public class JsonMessage
     {
-        public string message { get; set; }
+        public object message { get; set; }
 
         internal ResultType statusEnum { get; set; }
 

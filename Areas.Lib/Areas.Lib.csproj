@@ -165,6 +165,7 @@
   </ItemGroup>
   <ItemGroup>
     <Content Include="Help\ConnectionResolver\setup-connection-resolver.txt" />
+    <Content Include="Help\Restful Form submit\help.txt" />
     <Content Include="Help\Retry policy on azure\setup-retry-policy.txt" />
     <Content Include="Help\Repository\Guidelines-For-Code-First-Model-Design.txt" />
     <Content Include="Help\Repository\Repository.txt" />
