@@ -48,8 +48,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\..\Solution\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\solution\packages\EntityFramework.5.0.0-beta2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\Lib\Mongo_db_2.2.0\MongoDB.Bson.dll</HintPath>
@@ -138,6 +139,7 @@
     <Content Include="Help\Common Sql Queries\info_schema_PrimaryKeyOnATable.txt" />
     <Content Include="Help\Common Sql Queries\info_schema_ViewColumns.txt" />
     <Content Include="Help\LazySchema\help.txt" />
+    <None Include="App.config" />
     <None Include="Help\TortoiesHG\SSH\001-GeneratingSSHKey.md" />
     <None Include="Help\MongoDB\001.Mongo Application Quick Start.md" />
     <None Include="Help\MongoDB\002.Connectionstring format.md" />
@@ -146,9 +148,6 @@
     <None Include="Help\MongoDB\005.CSharp Drivers.md" />
     <Content Include="Help\Repository\Domain.txt" />
     <Content Include="Help\Repository\Domain_Partial.txt" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Help\Git-TF\" />
