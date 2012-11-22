@@ -1,4 +1,4 @@
-﻿namespace Areas.Lib.Web
+﻿namespace WebAreas.Lib.Web
 {
     public class MvcViewsHelpersConfig
     {

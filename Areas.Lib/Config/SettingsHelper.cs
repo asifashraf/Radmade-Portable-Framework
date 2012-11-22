@@ -3,7 +3,7 @@ using System.Configuration;
 using System.Reflection;
 using System.Web;
 
-namespace Areas.Lib.Config
+namespace WebAreas.Lib.Config
 {
     public static class SettingsHelper
     {

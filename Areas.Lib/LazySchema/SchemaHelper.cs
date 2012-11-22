@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Areas.Lib.LazySchema
+namespace WebAreas.Lib.LazySchema
 {
     /// <summary>
     /// Does not fetch anything in constructor. 

@@ -2,9 +2,9 @@
 using System.Web;
 using System.Web.Script.Serialization;
 using System.Web.Security;
-using Areas.Lib.Encryption;
+using WebAreas.Lib.Encryption;
 
-namespace Areas.Lib.WebAuth
+namespace WebAreas.Lib.WebAuth
 {
     public class Auth
     {

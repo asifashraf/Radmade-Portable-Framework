@@ -11,7 +11,7 @@
 // ------------------------------------------------------------------------------
 #region Designer generated code
 #pragma warning disable
-namespace Areas.Lib.Tests.AppEnvironment
+namespace WebAreas.Lib.Tests.AppEnvironment
 {
     using TechTalk.SpecFlow;
     

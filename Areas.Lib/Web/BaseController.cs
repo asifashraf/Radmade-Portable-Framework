@@ -1,6 +1,6 @@
 ﻿using System.Web.Mvc;
 
-namespace Areas.Lib.Web
+namespace WebAreas.Lib.Web
 {
     public abstract class BaseController : Controller
     {

@@ -1,4 +1,4 @@
-﻿using Areas.Lib.Repository;
+﻿using WebAreas.Lib.Repository;
     using System;
     using System.Collections.Generic;
     using System.Configuration;

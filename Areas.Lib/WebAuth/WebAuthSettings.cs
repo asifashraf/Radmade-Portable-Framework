@@ -1,4 +1,4 @@
-﻿namespace Areas.Lib.WebAuth
+﻿namespace WebAreas.Lib.WebAuth
 {
     public static class WebAuthSettings
     {

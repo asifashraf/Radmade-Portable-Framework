@@ -6,7 +6,7 @@ using MongoDB.Bson;
 using MongoDB.Driver;
 using MongoDB.Driver.Linq;
 using MongoDB.Driver.Builders;
-namespace Areas.Lib.Mongodb
+namespace WebAreas.Lib.Mongodb
 {
     //help docs http://www.mongodb.org/display/DOCS/CSharp+Driver+Quickstart#CSharpDriverQuickstart-Introduction
 

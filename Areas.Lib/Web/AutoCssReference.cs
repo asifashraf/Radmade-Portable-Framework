@@ -2,9 +2,9 @@
 using System.IO;
 using System.Web;
 using System.Web.Mvc;
-using Areas.Lib.Config;
+using WebAreas.Lib.Config;
 
-namespace Areas.Lib.Web
+namespace WebAreas.Lib.Web
 {
     public static class AutoCssReference
     {

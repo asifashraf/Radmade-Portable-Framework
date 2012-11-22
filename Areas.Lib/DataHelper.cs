@@ -1,4 +1,4 @@
-﻿namespace Areas.Lib
+﻿namespace WebAreas.Lib
 {
     using System;
     using System.Collections.Generic;
