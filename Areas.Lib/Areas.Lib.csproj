@@ -146,9 +146,6 @@
     <None Include="Help\MongoDB\005.CSharp Drivers.md" />
     <Content Include="Help\Repository\Domain.txt" />
     <Content Include="Help\Repository\Domain_Partial.txt" />
-    <None Include="packages.config">
-      <SubType>Designer</SubType>
-    </None>
   </ItemGroup>
   <ItemGroup>
     <Folder Include="Help\Git-TF\" />
