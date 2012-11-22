@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Areas.Lib.WebAuth
+namespace WebAreas.Lib.WebAuth
 {
     public class Token
     {

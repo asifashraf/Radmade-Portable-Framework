@@ -8,7 +8,7 @@
     <ProjectGuid>{741D32FF-7F8E-4DB5-9415-5F4ACFA55C41}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Areas.Lib</RootNamespace>
+    <RootNamespace>WebAreas.Lib</RootNamespace>
     <AssemblyName>Areas.Lib</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>
@@ -48,8 +48,9 @@
     <CodeAnalysisRuleSet>AllRules.ruleset</CodeAnalysisRuleSet>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="EntityFramework">
-      <HintPath>..\..\Solution\packages\EntityFramework.5.0.0\lib\net40\EntityFramework.dll</HintPath>
+    <Reference Include="EntityFramework, Version=4.4.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089, processorArchitecture=MSIL">
+      <SpecificVersion>False</SpecificVersion>
+      <HintPath>..\solution\packages\EntityFramework.5.0.0-beta2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\Lib\Mongo_db_2.2.0\MongoDB.Bson.dll</HintPath>
@@ -104,6 +105,11 @@
     <Compile Include="Mongodb\MongoEntity.cs" />
     <Compile Include="Pluralizer\Pluralizer.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="Properties\Settings.Designer.cs">
+      <AutoGen>True</AutoGen>
+      <DesignTimeSharedInput>True</DesignTimeSharedInput>
+      <DependentUpon>Settings.settings</DependentUpon>
+    </Compile>
     <Compile Include="Repository\GenericRepository.cs" />
     <Compile Include="Repository\IDataRepository.cs" />
     <Compile Include="WebAuth\Auth.cs" />
@@ -138,6 +144,7 @@
     <Content Include="Help\Common Sql Queries\info_schema_PrimaryKeyOnATable.txt" />
     <Content Include="Help\Common Sql Queries\info_schema_ViewColumns.txt" />
     <Content Include="Help\LazySchema\help.txt" />
+    <None Include="App.config" />
     <None Include="Help\TortoiesHG\SSH\001-GeneratingSSHKey.md" />
     <None Include="Help\MongoDB\001.Mongo Application Quick Start.md" />
     <None Include="Help\MongoDB\002.Connectionstring format.md" />

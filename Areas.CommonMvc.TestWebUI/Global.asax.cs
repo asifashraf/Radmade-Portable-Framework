@@ -1,7 +1,7 @@
 ﻿using System.Web.Mvc;
 using System.Web.Routing;
 using Area.CommonMvc;
-using Areas.Lib.Web;
+using WebAreas.Lib.Web;
 using MvcContrib.PortableAreas;
 
 namespace Areas.CommonMvc.TestWebUI

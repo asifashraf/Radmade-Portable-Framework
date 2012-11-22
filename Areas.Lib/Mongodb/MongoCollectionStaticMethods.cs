@@ -5,7 +5,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Areas.Lib.Mongodb
+namespace WebAreas.Lib.Mongodb
 {
     public static class MongoCollectionStaticMethods
     {

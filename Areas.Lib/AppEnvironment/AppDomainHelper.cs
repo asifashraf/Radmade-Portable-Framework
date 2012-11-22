@@ -2,7 +2,7 @@
 using System.Collections.Generic;
 using System.Linq;
 
-namespace Areas.Lib.AppEnvironment
+namespace WebAreas.Lib.AppEnvironment
 {
     public class AppDomainHelper
     {

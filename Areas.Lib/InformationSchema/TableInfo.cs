@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Text;
 
-namespace Areas.Lib.InformationSchema
+namespace WebAreas.Lib.InformationSchema
 {
     public class TableInfo : ITableInfo
     {

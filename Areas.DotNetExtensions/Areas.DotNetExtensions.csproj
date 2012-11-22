@@ -8,7 +8,7 @@
     <ProjectGuid>{891BC139-7F80-41BE-8AF8-F0D400A6068B}</ProjectGuid>
     <OutputType>Library</OutputType>
     <AppDesignerFolder>Properties</AppDesignerFolder>
-    <RootNamespace>Areas.DotNetExtensions</RootNamespace>
+    <RootNamespace>WebAreas.DotNetExtensions</RootNamespace>
     <AssemblyName>Areas.DotNetExtensions</AssemblyName>
     <TargetFrameworkVersion>v4.0</TargetFrameworkVersion>
     <FileAlignment>512</FileAlignment>

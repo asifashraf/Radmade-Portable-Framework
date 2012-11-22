@@ -7,7 +7,7 @@
 // </summary>
 // --------------------------------------------------------------------------------------------------------------------
 
-namespace Areas.Lib.Repository
+namespace WebAreas.Lib.Repository
 {
     using System.Linq;
 

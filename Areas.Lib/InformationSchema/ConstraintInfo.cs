@@ -5,7 +5,7 @@ using System.Text;
 using System.Data.SqlClient;
 using System.Data;
 
-namespace Areas.Lib.InformationSchema
+namespace WebAreas.Lib.InformationSchema
 {
     public class ConstraintInfo
     {

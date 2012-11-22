@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Net;
 
-namespace Areas.Lib.WebAuth
+namespace WebAreas.Lib.WebAuth
 {
     public class IPHelper
     {

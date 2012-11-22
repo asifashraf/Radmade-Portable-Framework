@@ -4,7 +4,7 @@ using System.Reflection;
 using System.Web.Mvc;
 using System.Web.Routing;
 
-namespace Areas.Lib.Web
+namespace WebAreas.Lib.Web
 {
     /// <summary>
     /// Provides helpful utilities for performing area registration, where <see cref="AreaRegistration.RegisterAllAreas()"/> may not suffice.

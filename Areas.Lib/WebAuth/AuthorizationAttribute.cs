@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Web.Mvc;
 
-namespace Areas.Lib.WebAuth
+namespace WebAreas.Lib.WebAuth
 {
     public class AuthorizationAttribute : AuthorizeAttribute
     {
