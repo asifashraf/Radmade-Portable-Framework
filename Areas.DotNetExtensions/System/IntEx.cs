@@ -1,3 +1,4 @@
+using System;
 public static class IntEx
     {
 		#region Methods (3) 
@@ -51,7 +52,11 @@ public static class IntEx
 		{
 			return integer < 0;
 		}
-
+        public static int GetRandomNumber(this int minimum, int maximum)
+        {
+            var random = new Random();
+            return random.Next(minimum, maximum + 1);
+        }
 		#endregion Methods 
     }
 

@@ -9,7 +9,7 @@ using System.Web.Mvc;
 
 namespace WebAreas.Lib.Validation
 {
-    public class AlphabetsOnlyAttribute : ValidationAttribute
+    public class AlphabetsOnlyAttribute : ValidationAttribute, IClientValidatable
     {
         protected override ValidationResult IsValid(object value, ValidationContext validationContext)
         {
@@ -20,7 +20,8 @@ namespace WebAreas.Lib.Validation
             }
             return ValidationResult.Success;
         }
-        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(ModelMetadata metadata, ControllerContext context)
+        public IEnumerable<ModelClientValidationRule> GetClientValidationRules(
+            ModelMetadata metadata, ControllerContext context)
         {
             ModelClientValidationRule rule = new ModelClientValidationRule();
             rule.ValidationType = "alphabetsOnly";
@@ -32,5 +33,6 @@ namespace WebAreas.Lib.Validation
                 rule 
             };
         }
+        
     }
 }

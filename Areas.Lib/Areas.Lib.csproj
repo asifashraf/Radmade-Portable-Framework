@@ -116,6 +116,7 @@
     <Compile Include="Repository\GenericRepository.cs" />
     <Compile Include="Repository\IDataRepository.cs" />
     <Compile Include="Validation\AlphabetsOnlyAttribute.cs" />
+    <Compile Include="Validation\DateComesLater.cs" />
     <Compile Include="Validation\MaxCharAttribute.cs" />
     <Compile Include="WebAuth\Auth.cs" />
     <Compile Include="WebAuth\AuthorizationAttribute.cs" />
