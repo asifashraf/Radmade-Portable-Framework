@@ -21,6 +21,16 @@
             return newEntry;
         }
 
+        public void Create<T>(IEnumerable<T> entities) where T : class
+        {
+            foreach (var entity in entities)
+            {
+                db.Set<T>().Add(entity);
+            }
+            
+            db.SaveChanges();            
+        }
+
         public IQueryable<T> Read<T>() where T : class
         {
             return db.Set<T>().AsQueryable<T>();
