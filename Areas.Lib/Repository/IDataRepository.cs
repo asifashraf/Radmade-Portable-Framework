@@ -15,13 +15,22 @@ namespace WebAreas.Lib.Repository
     public interface IDataRepository
     {
         T Create<T>(T entity) where T : class;
-
-        void Create<T>(IEnumerable<T> entities) where T : class;
+        
+        void Create<T>(IEnumerable<T> entities) where T : class;        
 
         IQueryable<T> Read<T>() where T : class;
 
         void Update<T>(T entity) where T : class;
 
         void Delete<T>(T entity) where T : class;
+
+        void Delete<T>(IEnumerable<T> entities) where T : class;
+
+        // Objects 
+        void CreateWith<T>(IEnumerable<object> entities) where T : class;
+        
+        T CreateWith<T>(object entity) where T : class;
+
+        void UpdateWith<T>(T entity) where T : class;        
     }
 }

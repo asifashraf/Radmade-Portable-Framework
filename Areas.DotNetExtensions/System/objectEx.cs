@@ -1,3 +1,4 @@
+using Areas.DotNetExtensions;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -58,16 +59,29 @@ public static class objectEx
                     continue;
                 }
 				var q = from p in targetProps
-																			where p.Name == pi.Name
-																			select p;
+				where p.Name == pi.Name
+				select p;
 				if (q.Any())
 				{
 					var p = q.First<PropertyInfo>();
 					try
 					{
-						p.SetValue(targetInstance, pi.GetValue(sourceObject, null), null);
+                        object valueToSet = (object)pi.GetValue(sourceObject, null);
+						p.SetValue(targetInstance, valueToSet, null);
 					}
-					catch { }
+					catch(Exception error)
+                    {
+                        try
+                        {
+                            object valueToSetErr = pi.GetValue(sourceObject, null);
+                            var manualConvert = new ManualConvert(valueToSetErr);
+                            var convertedValue = manualConvert.ConvertType(p.PropertyType);
+                            p.SetValue(targetInstance, convertedValue, null);
+                        }
+                        catch { 
+                        
+                        }
+                    }
 				}
 			}
 		}

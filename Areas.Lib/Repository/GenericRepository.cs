@@ -28,7 +28,7 @@
                 db.Set<T>().Add(entity);
             }
             
-            db.SaveChanges();            
+            db.SaveChanges();
         }
 
         public IQueryable<T> Read<T>() where T : class
@@ -50,9 +50,57 @@
             db.SaveChanges();
         }
         
+        public void Delete<T>(IEnumerable<T> entities) where T : class
+        {
+            foreach (var entity in entities)
+            {
+                db.Set<T>().Remove(entity);
+            }
+            db.SaveChanges();
+        }
+        
         public void Dispose()
         {
             this.db.Dispose();
+        }
+        
+        public void CreateWith<T>(IEnumerable<object> entities) where T : class
+        {
+            if (entities.IsNull())
+            {
+                return;
+            }
+            
+            var list = new List<T>();
+
+            foreach (var item in entities)
+            {
+                var t = typeof(T).Construct() as T;
+
+                item.CopyMatchProperties(t);
+
+                list.Add(t);
+            }
+
+            Create<T>(list);
+        }
+
+        public T CreateWith<T>(object entity) where T : class
+        {
+            var t = typeof(T).Construct() as T;
+
+            entity.CopyMatchProperties(t);
+
+            return Create<T>(t);
+        }        
+
+        public void UpdateWith<T>(T entity) where T : class
+        {
+            var t = typeof(T).Construct() as T;
+
+            entity.CopyMatchProperties(t);
+
+            Update<T>(t);
         }
     }
 }

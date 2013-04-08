@@ -55,6 +55,12 @@
       <SpecificVersion>False</SpecificVersion>
       <HintPath>..\solution\packages\EntityFramework.5.0.0-beta2\lib\net45\EntityFramework.dll</HintPath>
     </Reference>
+    <Reference Include="Excel">
+      <HintPath>..\Lib\ExcelDataReader\Excel.dll</HintPath>
+    </Reference>
+    <Reference Include="ICSharpCode.SharpZipLib">
+      <HintPath>..\Lib\ExcelDataReader\ICSharpCode.SharpZipLib.dll</HintPath>
+    </Reference>
     <Reference Include="MongoDB.Bson">
       <HintPath>..\Lib\Mongo_db_2.2.0\MongoDB.Bson.dll</HintPath>
     </Reference>
@@ -85,7 +91,9 @@
     <Compile Include="AppEnvironment\AppDomainHelper.cs" />
     <Compile Include="Config\SettingsHelper.cs" />
     <Compile Include="DataHelpers\IDataRepository.cs" />
+    <Compile Include="DataImport.cs" />
     <Compile Include="Encryption\Crypto.cs" />
+    <Compile Include="ExcelData\ExcelReader.cs" />
     <Compile Include="InformationSchema\ConstraintInfo.cs" />
     <Compile Include="InformationSchema\ExtensionMethods.cs" />
     <Compile Include="InformationSchema\ForeignKey.cs" />

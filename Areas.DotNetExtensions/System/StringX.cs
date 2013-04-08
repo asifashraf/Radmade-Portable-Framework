@@ -889,8 +889,28 @@ public static class StringX
             return label.Pascalize();
         }
 
+        public static string ToLabel(this string id)
+        {
+            id = id.Trim();
+            var sb = new StringBuilder();
+            foreach (var c in id.Select((str, ind) => new{ Item = str, Index = ind }))
+            {
+                if (c.Index > 0 && Char.IsUpper(c.Item))
+                {
+                    sb.Append(string.Format(" {0}", c.Item.ToString()));
+                }
+                else
+                {
+                    sb.Append(c.Item.ToString());
+                }
+            }
+            return sb.ToString();
+        }
+
         public static List<string> SplitMultilineString(this string multilineString)
         {
            return multilineString.SplitToStringList("\r\n");
         }
+
+        
 	}

@@ -68,6 +68,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="ManualConvert.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="Support\Enums\TextNotation.cs" />
     <Compile Include="Support\Enums\XEncoding.cs" />

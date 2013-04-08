@@ -4,16 +4,15 @@ GO
 SET QUOTED_IDENTIFIER ON
 GO
 ALTER PROCEDURE [dbo].[CascadeDelete]
-@table varchar(100), -- Table name
+@table varchar(100),
+@pkColumnName varchar(100),
 @commaSepValues varchar(max) -- Must be comma separated list of primary keys 
 AS
 
-declare @column varchar(100)
-set @column = (SELECT top 1 cu.COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE cu WHERE EXISTS ( SELECT tc.* FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc WHERE tc.TABLE_NAME = @table AND tc.CONSTRAINT_TYPE = 'PRIMARY KEY' AND tc.CONSTRAINT_NAME = cu.CONSTRAINT_NAME ))
+--declare @column varchar(100)
+--set @column = (SELECT top 1 cu.COLUMN_NAME FROM INFORMATION_SCHEMA.KEY_COLUMN_USAGE cu WHERE EXISTS ( SELECT tc.* FROM INFORMATION_SCHEMA.TABLE_CONSTRAINTS tc WHERE tc.TABLE_NAME = @table AND tc.CONSTRAINT_TYPE = 'PRIMARY KEY' AND tc.CONSTRAINT_NAME = cu.CONSTRAINT_NAME ))
 
-Print 'Need to delete from ' + @table + ' where ' + @column 
-
-+ ' IN (' + convert(varchar, @commaSepValues) + ')'
+Print 'Need to delete from ' + @table + ' where ' + @pkColumnName + ' IN (' + convert(varchar, @commaSepValues) + ')'
 
 DECLARE @refrencingTable varchar(100)
 DECLARE @refrencingColumn varchar(100)
@@ -23,9 +22,7 @@ DECLARE @sql varchar(4000)
 DECLARE @keyval bigint
 
 BEGIN TRY
-SET @sql = 'delete from ' + @table + ' where ' + @column 
-
-+ ' IN (' + convert(varchar, @commaSepValues) + ')'
+SET @sql = 'delete from ' + @table + ' where ' + @pkColumnName + ' IN (' + convert(varchar, @commaSepValues) + ')'
 EXEC (@sql)
 PRINT 'Bulk delete worked' 
 
@@ -103,9 +100,7 @@ END
 CLOSE ref
 DEALLOCATE ref
 
-SET @sql = 'DELETE FROM ' + @table + ' WHERE ' + @column 
-
-+ ' IN (' + CONVERT(varchar, @commaSepValues) + ')'
+SET @sql = 'DELETE FROM ' + @table + ' WHERE ' + @pkColumnName + ' IN (' + CONVERT(varchar, @commaSepValues) + ')'
 PRINT @sql
 EXEC (@sql)
 END CATCH
